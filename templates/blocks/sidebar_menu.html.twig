@@ -1,0 +1,415 @@
+<nav class="main-header navbar navbar-expand-md navbar-dark navbar-custbl ">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse order-3 " id="navbarCollapse">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+
+                <li class="nav-item useDashboard">
+                    <a id="useDashboardModal" href="#" class="nav-link">
+                        <i class="fas fa-tachometer-alt mr-1"></i>Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item useDashboard_2" style="display: none;">
+                    <a href="{{path('Home',{'path':'dashboard'}) }}" class="nav-link">
+                        <i class="fas fa-tachometer-alt mr-1"></i>Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item useScheduler" >
+                    <a id="useSchedulModal" href="#" class="nav-link">
+                        <i class="fas fa-calendar mr-1"></i>Scheduler
+                    </a>
+                </li>
+                <li class="nav-item useScheduler_2" style="display: none;">
+                    <a href="{{path('Home',{'path':'scheduler'})}}" class="nav-link">
+                        <i class="fas fa-calendar mr-1"></i>Scheduler
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown c-content-emp" style="display: none;">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle" title="schedule">
+                        <i class=" fas fa-calendar mr-1"></i>Schedule</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li id="showMySchedule">
+                            <a id="scheduleModal" href="#"  class="dropdown-item">
+                                <i class="fas fa-calendar mr-2"></i>
+                                <small>My Schedule</small>
+                            </a>
+                        </li>
+                        <li id="showMySchedule_2" style="display: none;">
+                            <a href="{{path('Home',{'path':'myschedule'})}}"  class="dropdown-item">
+                                <i class="fas fa-calendar mr-2"></i>
+                                <small>My Schedule</small>
+                            </a>
+                        </li>
+                       <div class="seeCoworkers" style="display: none;">
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a  href="{{path('Home',{'path':'teamscheduler'})}}" class="dropdown-item">
+                                <i class="fas fa-user-friends mr-2"></i>
+                                <small>Team Schedule</small>
+                            </a>
+                        </li>
+                       </div>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown c-content-all" style="display: none;">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+                        <i class="mr-1 far fa-clock"></i>Attendance</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li id="useTimesheets">
+                            <a href="#" id="timesheetsModal" class="dropdown-item">
+                            <i class="far fa-list-alt mr-2"></i> <small>Timesheets</small> </a>
+                        </li>
+
+                        <li id="timesheetsOn" style="display: none">
+                            <a href="{{path('Home',{'path':'timesheets'}) }}" class="dropdown-item">
+                            <i class="far fa-list-alt mr-2"></i> <small>Timesheets</small> </a>
+                        </li>
+                        <li id="timesheetsOn" class="dropdown-divider"></li>
+
+                        <li id="adminTerminal">
+                            <a href="#" id="adminTerminalLink" class="dropdown-item text-justify">
+                                <i class="fas fa-user-clock mr-1"></i>Terminal
+                            </a>
+                        </li>
+                        <li id="adminTerminal_" style="display: none" >
+                            <a href="{{path('Home',{'path':'terminal'}) }}" class="dropdown-item text-justify">
+                                <i class="fas fa-user-clock mr-1"></i>Terminal
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <li id="loginTerminal" style="display: none;">
+                        <a href="{{path('Home',{'path':'loginClock'}) }}" class="nav-link text-justify">
+                            <i class="fas fa-user-clock mr-1"></i>Clock-In/Out
+                        </a>
+                    </li>
+
+                </li>
+            </ul>
+
+        <!-- Right navbar links -->
+        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            <!-- requests Dropdown Menu -->
+            <li class="nav-item dropdown">
+                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <i class="fas fa-archive"></i>
+                </a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <li><a href="#" class="dropdown-item request-timeoff" data-toggle="modal" data-target="#modal-reqoff"><i class="fas fa-plus mr-2"></i><small>Request Time-off</small>  </a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="{{path('Home',{'path':'time-off-requests'})}}" class="dropdown-item"><i class="far fas fa-print mr-2"></i><small>Time off Requests</small></a></li>
+
+                    <li id="shiftRequest_border" class="dropdown-divider" style="display: none"></li>
+                    <li id="shiftRequest" style="display: none">
+                        <a href="{{path('Home',{'path':'shift-requests'})}}" class="dropdown-item">
+                            <i class="fas fa-clipboard-list mr-2"></i>
+                            <small>Shift Requests</small>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!-- items setting Dropdown Menu -->
+            <li class="nav-item dropdown c-content-all" style="display: none;">
+                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <i class="fas fa-box"></i>
+                </a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <li><a href="{{path('Home',{'path':'employee'})}}" class="dropdown-item"> <i class="nav-icon fas fa-user mr-2"></i><small>Employees</small> </a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="{{path('Home',{'path':'position'})}}" class="dropdown-item"><i class="nav-icon fas fa-tags mr-2"></i><small>Positions</small> </a></li>
+                    <li class="dropdown-divider"></li>
+                    <li>
+                        <a href="{{path('Home',{'path':'schedule'})}}" class="dropdown-item">
+                            <i class="nav-icon fas fa-calendar-alt mr-2"></i>
+                            <small>Schedules</small>
+                        </a>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li id="showJobsite">
+                        <a id="jobsiteModal" href="#" class="dropdown-item">
+                            <i class="nav-icon fas fa-map-marker-alt mr-2"></i>
+                            <small>Job Sites</small>
+                        </a>
+                    </li>
+                    <li id="showJobsite_2" style="display: none;">
+                        <a href="{{path('Home',{'path':'jobsite'})}}" class="dropdown-item">
+                            <i class="nav-icon fas fa-map-marker-alt mr-2"></i>
+                            <small>Job Sites</small>
+                        </a>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="{{path('Home',{'path':'shift-templates'})}}" class="dropdown-item"><i class="nav-icon fas fa-tags mr-2"></i> <small>Shift Templates</small></a></li>
+
+
+
+                </ul>
+            </li>
+
+            <!-- setting dropdown menu-->
+            <li class="nav-item dropdown c-content-setting" style="display: none;">
+                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <i class="fas fa-cog"></i>
+                </a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <li>
+                        <a href="{{path('Home',{'path':'general-setting'})}}" class="dropdown-item">
+                            <i class="fas fa-cogs mr-2"></i>
+                            <small>General Settings</small>
+                        </a>
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li>
+                        <a href="{{path('Home',{'path':'attendance-setting'})}}" class="dropdown-item">
+                            <i class="fas fa-history mr-2"></i>
+                            <small>Attendance Settings</small>
+                        </a>
+                    </li>
+                   <div class="accountHolder" style="display: none;">
+                       <li class="dropdown-divider"></li>
+                       <li><a href="{{path('Home',{'path':'accBilling'})}}" class="dropdown-item"><i class="fas fa-share-alt-square mr-2"></i> <small>Account & Billing</small> </a></li>
+                   </div>
+                </ul>
+            </li>
+            <!-- coworkers -->
+            <li class="nav-item c-content-emp" style="display: none;">
+                <a href="{{path('Home',{'path':'coworkers'})}}" class="nav-link" title="Coworkers">
+                    <i class="fas fa-user-friends mr-1"></i></a>
+            </li>
+
+            <!-- person Dropdown Menu -->
+            <li class="nav-item dropdown">
+                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+                    <span class="employeeFullname text-capitalize"></span>
+                    <img src="{{asset('img/workplaceImg.png')}}" style="width: 30px;opacity: .8;" id="userImgAccounts" class="brand-image img-circle elevation-3">
+                </a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow ml-2">
+                    <li>
+                        <a href="{{path('Home',{'path':'profile'})}}" class="dropdown-item">
+                            <i class="fas fa-portrait nav-icon mr-2"></i> <small>My Profile</small>
+                        </a>
+                    </li>
+                    <li class="dropdown-divider showMyScheduleAccount" style="display: none;"></li>
+                    <li id="showMyScheduleAccount">
+                        <a id="scheduleModalAccount" href="#"  class="dropdown-item">
+                            <i class="fas fa-calendar mr-2"></i>
+                            <small>My Schedule</small>
+                        </a>
+                    </li>
+                    <li id="showMySchedule_2Account" style="display: none;">
+                        <a href="{{path('Home',{'path':'myschedule'})}}"  class="dropdown-item">
+                            <i class="fas fa-calendar mr-2"></i>
+                            <small>My Schedule</small>
+                        </a>
+                    </li>
+
+                    <div class="availability">
+                        <li class="dropdown-divider" id="myAvailablityBorder"></li>
+                        <li id="showMyAvailablity">
+                            <a id="availabilityModule" href="#" class="dropdown-item">
+                                <i class="far fa-check-square nav-icon mr-2"></i><small>My Availability</small>
+                            </a>
+                        </li>
+                        <li id="showMyAvailablity_2" style="display: none;">
+                            <a href="{{path('Home',{'path':'availability'})}}" class="dropdown-item">
+                                <i class="far fa-check-square nav-icon mr-2"></i><small>My Availability</small>
+                            </a>
+                        </li>
+                    </div>
+                    <li class="dropdown-divider"></li>
+                    <li><a href="{{path('Home',{'path':'accounts'})}}" class="dropdown-item"> <i class="fas fa-sync-alt nav-icon mr-2"></i><small>Switch Workplaces</small> </a></li>
+                    <li class="dropdown-divider"></li>
+                    <li>
+                        <a href="{{path('Home',{'path':'login'})}}" class="dropdown-item logouting">
+                            <i class="fas fa-sign-out-alt nav-icon mr-2"></i>
+                            <small>Log Out</small>
+                        </a>
+                    </li>
+
+
+
+                </ul>
+            </li>
+
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i class="far fa-bell"></i></a>#}
+{#            </li>#}
+        </ul>
+    </div>
+    </div>
+</nav>
+<!-- modal add Request time-off -->
+<!-- every page should has select2 and timepicker plugin -->
+<div class="modal fade" id="modal-reqoff">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title font-weight-bold">Add Request Time Off</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+                <div class="modal-body pl-4 pt-4 pr-4 pb-4">
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label class="pt-2 pr-2" style="line-height: 30px">WHO</label>
+                            <select class="select-emp-demoall form-control"
+                                    style="width: 100%;">
+                                <option>All/Everyone</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mt-2">
+                            <label class="pt-2 pr-2" for="name">Time Off Type*</label>
+                            <select class="form-control type-off mt-2" id="type-off-all" name="type-off-all" style="width: 100%;">
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-8">
+                            <div>
+                                <input type="checkbox" class="form-controller" id="all-day" name="all-day">
+                                <label class="pl-2">
+                                    All Day
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <!-- Date range -->
+                            <div class="form-group">
+                                <label class="pt-2 pr-2">Start Date*</label>
+
+                                <div class="input-group mt-2">
+                                    <div class="input-group-prepend">
+                                         <span class="input-group-text">
+                                              <i class="far fa-calendar-alt"></i>
+                                         </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="start-date-reqoff" name="start-date-reqoff">
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-6 date-range" style="display: none;">
+                            <!-- Date range -->
+                            <div class="form-group">
+                                <label class="pt-2 pr-2">End Date*</label>
+
+                                <div class="input-group mt-2">
+                                    <div class="input-group-prepend">
+                                         <span class="input-group-text">
+                                              <i class="far fa-calendar-alt"></i>
+                                         </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="end-date-reqoff" name="end-date-reqoff">
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row time-range mt-2">
+                        <div class="col-6">
+
+                            <!-- time Picker -->
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group">
+                                    <label class="pt-2 pr-2">Starting*</label>
+
+                                    <div class="input-group date mt-2" id="start-time-reqoff" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" id="timestart-timeoff" data-target="#start-time-reqoff"/>
+                                        <div class="input-group-append" data-target="#start-time-reqoff" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                        </div>
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+                                <!-- /.form group -->
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+
+                            <!-- time Picker -->
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group">
+                                    <label class="pt-2 pr-2">Ending*</label>
+
+                                    <div class="input-group date mt-2" id="end-time-reqoff" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" id="timeend-timeoff" data-target="#end-time-reqoff"/>
+                                        <div class="input-group-append" data-target="#end-time-reqoff" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row paid mt-2" style="display: none;">
+                        <div class="col-6">
+                            <label class="pr-2" for="paid-hour">Paid Hours</label>
+                            <input type="text" class="form-control mt-2" id="paid-hour" name="paid-hour" >
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <label class="pr-2" for="message">Message</label>
+                            <textarea id="message" class="form-control mt-2" name="message"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-custbl btn-sm float-right sendreq" data-dismiss="modal">Send Request</button>
+                </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- modal seller plan -->
+
+<div class="modal fade" id="modalSellerPlan" tabindex="-1" role="dialog" aria-labelledby="modalSellerPlanTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalSellerPlanTitle">Purchase plan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 >Your account cannot access this section. To be able to use the features of this section.Please purchase a higher
+            plan
+        </h5>
+      </div>
+      <div class="modal-footer">
+        <a href="{{path('Home',{'path':'pricing'}) }}" class="btn btn-success">Purchase plan</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /.modal seller plan -->

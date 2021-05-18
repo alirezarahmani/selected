@@ -1,0 +1,394 @@
+body {
+    /*background-image: linear-gradient(to right ,#254250,#3F8CB3,#254250);*/
+    background-color: #254250;
+}
+.showImage {
+    /*height: 30vw;*/
+    /*margin-left: 20%;*/
+    position: relative;
+    width: 100%;
+}
+
+.container {
+    /* margin-bottom: 7%; */
+}
+
+#video {
+    border-radius: 15px;
+    /*height: 100%;*/
+    /*margin-left: 2%;*/
+    position: absolute;
+    margin-left: 26%;
+    /*margin-right: 25%;*/
+
+}
+#canvas {
+    border-radius: 15px;
+    /*height: 100%;*/
+    /*margin-left: 2%;*/
+    position: absolute;
+    margin-left: 26%;
+    /*margin-right: 25%;*/
+}
+.showBTN{
+    width: 520px;
+    height: 60px;
+    background-color: #1F2C32;
+    /*margin-left: 23%;*/
+    border-radius: 30px;
+    /*margin-top: 20px;*/
+    /*float: left;*/
+    margin-left: 26.5%;
+    margin-top: 420px;
+}
+.clockIn {
+    background-color: #EDDB3D;
+    color: white;
+    border-radius: 30px;
+    margin-top: 1.6%;
+    margin-left: 2%;
+    width: 28%;
+    height: 70%;
+}
+.clockIn:hover{
+    background-color: #3F8CB3;
+    color: white;
+}
+.break{
+    background-color: #EDDB3D;
+    color: white;
+    border-radius: 30px;
+    margin-top: 1.6%;
+    margin-left: 6%;
+    width: 28%;
+    height: 70%;
+}
+.break:hover{
+    background-color: #3F8CB3;
+    color: white;
+}
+.clockOut {
+    background-color: #EDDB3D;
+    color: white;
+    border-radius: 30px;
+    margin-top: 1.6%;
+    margin-right: 2%;
+    float: right;
+    width: 28%;
+    height: 70%;
+}
+.clockOut:hover{
+    background-color: #3F8CB3;
+    color: white;
+}
+
+
+.popoverClockBreak{
+    display: none;
+    width: 100%;
+    background-color: #3F8CB3;
+    float: left;
+    height: 70px;
+    border-radius: 21px;
+    /*margin-left: 27%;*/
+    margin-top: 30px;
+    font-size: 40px;
+    color: white !important;
+    position: relative;
+}
+.popoverClockBreak::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -20px;
+    left: 13%;
+    border-style: solid;
+    border-width: 0 12px 20px 12px;
+    border-color: transparent transparent #3F8CB3 transparent;
+}
+
+.popoverClockBreak2{
+    display: none;
+    width: 100%;
+    background-color: #3F8CB3;
+    float: left;
+    height: 70px;
+    border-radius: 21px;
+    /*margin-left: 27%;*/
+    margin-top: 30px;
+    font-size: 40px;
+    color: white !important;
+    position: relative;
+}
+.popoverClockBreak2::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -20px;
+    left: 82%;
+    border-style: solid;
+    border-width: 0 12px 20px 12px;
+    border-color: transparent transparent #3F8CB3 transparent;
+}
+
+.popoverBreak{
+    display: none;
+    width: 100%;
+    background-color: #3F8CB3;
+    float: left;
+    height: 70px;
+    border-radius: 21px;
+    /*margin-left: 27%;*/
+    margin-top: 30px;
+    font-size: 40px;
+    color: white !important;
+    position: relative;
+}
+.popoverBreak::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -20px;
+    left: 48%;
+    border-style: solid;
+    border-width: 0 12px 20px 12px;
+    border-color: transparent transparent #3F8CB3 transparent;
+}
+.popoverBreak2{
+    display: none;
+    width: 100%;
+    background-color: #3F8CB3;
+    float: left;
+    height: 70px;
+    border-radius: 21px;
+    /*margin-left: 27%;*/
+    margin-top: 30px;
+    font-size: 40px;
+    color: white !important;
+    position: relative;
+}
+.popoverBreak2::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -20px;
+    left: 48%;
+    border-style: solid;
+    border-width: 0 12px 20px 12px;
+    border-color: transparent transparent #3F8CB3 transparent;
+}
+
+.boxShowTime {
+    width: 100%;
+    height: 100px;
+    /*text-align: center;*/
+}
+.boxShowTime p {
+    font-size: 50px;
+    color: white;
+    padding-top: 20px;
+    /*margin: auto;*/
+    width: 520px;
+    margin-left: 26%;
+    text-align: center;
+}
+
+.designClock {
+    background-color: white;width: 170px;margin-left: 470px;
+    height: 80px;border-radius: 10px; position: absolute;
+    top: 250px; z-index: 10;
+}
+
+.designClock p {
+    padding:20px;
+    color: gray;font-family: sans-serif; font-size: 14px; text-align: center;
+}
+
+.disignBreak{
+    background-color: white;width: 220px;margin-left: 470px;
+    height: 80px;border-radius: 10px; position: absolute;
+    top: 250px; z-index: 10;
+}
+
+.disignBreak p {
+    padding:20px;
+    color: gray;font-family: sans-serif; font-size: 14px; text-align: center;
+}
+
+.usersInfo {
+    /*background-color: white;*/
+    width: 250px;
+    margin-left: 26%;
+    height: 80px;
+    border-radius: 10px;
+    position: absolute;
+    /*top: 250px;*/
+    z-index: 10;
+}
+.usersInfo p:first-child {
+    /*padding:20px;*/
+    margin-bottom: 0;
+    margin-top: 20px;
+    padding-left: 20px;
+    color: white;font-family: sans-serif; font-size: 16px; text-align: left; font-weight: bold;
+}
+.usersInfo p:last-child {
+    /*padding:20px;*/
+    padding-left: 20px;
+    color: white;font-family: sans-serif; font-size: 12px; text-align: left;
+}
+
+.card {
+    width: 40%; margin: auto; height: auto; background-color: #4C6774;
+}
+
+/*.errorPrivate {*/
+/*    display: none;*/
+/*    text-align: center;*/
+/*    color: white;*/
+/*}*/
+
+/*.errorPrivate span:last-child {*/
+/*    padding-left: 10px;*/
+/*    font-size: 20px;*/
+/*}*/
+
+.validEmailStaff {
+    display: none;
+    text-align: center;
+    color: white;
+}
+
+.validEmailStaff span:last-child {
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.validScheduleOrPosition {
+    display: none;
+    text-align: center;
+    color: white;
+}
+
+.validScheduleOrPosition span:last-child {
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.validPosition {
+    display: none;
+    text-align: center;
+    color: white;
+}
+
+.validPosition span:last-child {
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+/*.errorPublic {*/
+/*    display: none;*/
+/*    text-align: center;*/
+/*    color: white;*/
+/*}*/
+
+/*.errorPublic span:last-child {*/
+/*    padding-left: 10px;*/
+/*    font-size: 20px;*/
+/*}*/
+
+.validEmail {
+    display: none;
+    text-align: center;
+    color: white;
+}
+
+.validEmail span:last-child {
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.msgShowOptions{
+    background-color: red;width: 220px;margin-left: 470px;
+    height: 80px;border-radius: 10px; position: absolute;
+    top: 250px; z-index: 10;
+}
+
+.msgShowOptions p {
+    padding-top:25px;
+    color: white;font-family: sans-serif; font-size: 20px; text-align: center;
+}
+
+.msgShowSchedule{
+    background-color: red;width: 220px;margin-left: 470px;
+    height: 80px;border-radius: 10px; position: absolute;
+    top: 250px; z-index: 10;
+}
+
+.msgShowSchedule p {
+    padding-top:10px;
+    color: white;font-family: sans-serif; font-size: 20px; text-align: center;
+}
+
+.boxShowSchedule {
+    text-align: center;padding-top: 7px;
+}
+
+.iconNotScheduler {
+    color: white; font-size: 30px
+}
+
+.textNotSchedule {
+    color: white; font-size: 30px
+}
+
+.selectSchedule2 {
+    width: 46%; margin: auto;
+}
+
+.fullBoxError_loginClock {
+    width: 100%; height: 100px;
+}
+
+.boxShowOwner {
+    width: 100%; height: 500px;
+}
+
+.showBoxTerminal {
+    width: 50%; height: 250px; margin: auto
+}
+
+footer{
+    height: 50px;
+    /*margin-top: 8%;*/
+}
+
+footer div {
+    margin-left: 10%;
+}
+
+footer div i {
+    float: left; font-size: 20px; color: white; padding-top: 10px;
+}
+
+footer div p{
+    float: left; color: white; padding-left: 10px; font-size: 17px;
+}
+
+footer p {
+    margin-right: 10% ;float: right; margin-top: 10px;
+}
+
+footer p span:first-child{
+    font-size: 17px; color: white; font-weight: 700
+}
+
+footer p span:last-child{
+    color: white; font-size: 17px;
+    border-left: 1.5px solid;
+    padding: 2px;
+}

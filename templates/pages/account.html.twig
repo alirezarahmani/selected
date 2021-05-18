@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Workplan | Account</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box" style="width: 600px;">
+    <div class="login-logo">
+        <i class="nav-icon fas fa-stream"></i>
+        <a href="#"> <b>Work</b>Plan</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body " style="padding: 3rem 6rem;">
+            <h3 class="text-center">Tell Us About Your Workplace</h3>
+
+            <p class="login-box-msg"><small>Creating a new workplace for your business is easy. Just fill  <br>
+                    out the information below.
+                </small>
+            </p>
+
+            <form action="#" method="post">
+
+                <div class="form-group">
+                    <label>Member Of Employees</label>
+                    <select class="form-control accountinput" style="width: 100%;">
+
+                        <option>1-5</option>
+                        <option>6-10</option>
+                        <option>11-20</option>
+                        <option>21-35</option>
+                        <option>36-50</option>
+                        <option>51-75</option>
+                        <option>76-100</option>
+                        <option>101-125</option>
+                        <option>126-250</option>
+                        <option>251-500</option>
+                        <option>251-500</option>
+                        <option>501+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Industry</label>
+                    <select class="form-control select2 selectpicker accountinput" style="width: 100%;" data-size="7">
+
+                        <optgroup label="Entertainment / Seasonal">
+                            <option>Music / Dance / Art</option>
+                            <option>Ski Area / Seasonal</option>
+                            <option>Parks / Recreation</option>
+                            <option>Theme Park / Seasonal</option>
+                            <option>Zoo / Aquarium</option>
+                            <option>Other Entertainment Services</option>
+                        </optgroup>
+                        <optgroup label="Food Service / Hospitality">
+                            <option>Bar / Club / Sports Bar</option>
+                            <option>Catering / Events</option>
+                            <option>Coffee Shops</option>
+                            <option>Food Truck / Mobile</option>
+                            <option>Hotel / Resorts</option>
+                            <option>QSR / Fast Casual</option>
+                            <option>Restaurant / Cafe</option>
+                            <option>Other Hospitality</option>
+                        </optgroup>
+                        <optgroup label="Technology / Software">
+                            <option>Sharing Economy</option>
+                            <option>Customer Support/Care</option>
+                            <option>Other Software / Technology</option>
+                        </optgroup>
+                        <optgroup label="Healthcare / Medical">
+                            <option>Adult Care Agency<</option>
+                            <option>Assisted Living / Care Center</option>
+                            <option>Dental Practice</option>
+                            <option>Hospitalist Organization</option>
+                            <option>Pharmacy</option>
+                            <option>Veterinary / Animal Care</option>
+                            <option>Other Healthcare / Medical</option>
+                        </optgroup>
+                        <optgroup label="Professional Service / Education">
+                            <option>Call Center</option>
+                            <option>Cleaning Service</option>
+                            <option>Fire Department / EMS</option>
+                            <option>Law Enforcement / Security</option>
+                            <option>Non-profit / Volunteer</option>
+                            <option>Parking / Valet Service</option>
+                            <option>Personal Care / Salon / Massage</option>
+                            <option>Pet Care / Boarding</option>
+                            <option>University / College / School</option>
+                            <option>Other Professional Service</option>
+                        </optgroup>
+                        <optgroup label="Retail">
+                            <option>Hardware / Home Improvement</option>
+                            <option>Retail Store</option>
+                            <option>Wireless Retail Store</option>
+                            <option>Other Retail</option>
+                            <option>Other</option>
+                        </optgroup>
+
+                    </select>
+                </div>
+
+                <div class="row mt-2">
+
+                    <button type="submit" class="btn btn-custbl btn-block startbus" disabled="disabled">Start Scheduling</button>
+
+                </div>
+            </form>
+
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<!--My Script-->
+<script src="{{asset('js/config.js')}}"></script>
+<script src="{{asset('js/pages/auth.js')}}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.select2').select2();
+
+    });
+</script>
+
+</body>
+</html>

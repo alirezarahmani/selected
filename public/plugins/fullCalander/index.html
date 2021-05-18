@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+
+  <title>Scheduler | FullCalendar</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:100,400,700' />
+
+<link href='assets/base.css?1554505417' rel='stylesheet' />
+
+  <link rel='stylesheet' href='releases/core_main.min.css' />
+  <link rel='stylesheet' href='releases/daygrid_main.min.css' />
+  <link rel='stylesheet' href='releases/timegrid_main.min.css' />
+  <link rel='stylesheet' href='releases/timeline_main.min.css' />
+  <link rel='stylesheet' href='releases/resource-timeline_main.min.css' />
+  <style>
+
+  .calendar-example {
+    line-height: 1.3;
+  }
+
+  .calendar-example a[data-goto] {
+    color: #444;
+  }
+
+  .calendar-example .fc-event {
+    background-color: #2A92CA;
+    border-color: #2A92CA;
+  }
+
+</style>
+
+
+  <script src='releases/core_main.min.js'></script>
+  <script src='releases/interaction_main.min.js'></script>
+  <script src='releases/daygrid_main.min.js'></script>
+  <script src='releases/timegrid_main.min.js'></script>
+  <script src='releases/timeline_main.min.js'></script>
+  <script src='releases/resource-common_main.min.js'></script>
+  <script src='releases/resource-timeline_main.min.js'></script>
+  <script src='assets-more/scheduler-index.js?1611535588'></script>
+
+</head>
+<body>
+
+  
+<div class='header'>
+  <div class='header__container container'>
+    <a href='/' class='header__branding'>
+      <img class='header__branding-image' src='/assets/images/logo.svg' width='58' height='48' alt='logo' />
+      <h2 class='header__branding-text'><span>Full</span>Calendar</h2>
+    </a>
+    <ul class='header__nav'>
+      <li class='header__nav-item '>
+        <a href='/' class='header__nav-link'>
+          <span>Home</span>
+        </a>
+      </li>
+      <li class='header__nav-item'>
+        <a href='/docs' class='header__nav-link'>
+          <span>Docs</span>
+        </a>
+      </li>
+      <li class='header__nav-item'>
+        <a href='/download' class='header__nav-link'>
+          <span>Download</span>
+        </a>
+      </li>
+      <li class='header__nav-item'>
+        <a href='/support' class='header__nav-link'>
+          <span>Support</span>
+        </a>
+      </li>
+      <li class='header__nav-item'>
+        <a href='/contributing' class='header__nav-link'>
+          <span>Contribute</span>
+        </a>
+      </li>
+      <li class='header__nav-item header__nav-item--selected'>
+        <a href='/scheduler' class='header__nav-link'>
+          <span>Scheduler</span>
+          <img alt='lightning bolt' src='/assets/images/bolt-orange-14x24@2x.png' width='14' height='24' />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  
+  
+<div class='hero'>
+  <div class='hero__container container'>
+    <div class='hero__main'>
+              <h1 class='hero__title'>
+          Scheduler
+        </h1>
+        <p class='hero__subtitle'>
+          A premium add-on for displaying events and resources
+        </p>
+          </div>
+    <ul class='hero__nav'>
+      <li class='hero__nav-item hero__nav-item--selected'>
+        <a href='/scheduler' class='hero__nav-link'>
+          Demos
+        </a>
+      </li>
+      <li class='hero__nav-item '>
+        <a href='/scheduler/purchase' class='hero__nav-link'>
+          Purchase
+        </a>
+      </li>
+      <li class='hero__nav-item '>
+        <a href='/scheduler/download' class='hero__nav-link'>
+          Free Trial
+        </a>
+      </li>
+      <li class='hero__nav-item '>
+        <a href='/scheduler/license' class='hero__nav-link'>
+          License
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  <div class='page-content'>
+    <div class='page-content__container container'>
+        <div class='sidebar-layout' style='padding-top:1em'>
+    <div class='sidebar-layout__main' style='font-size:14px'>
+      <div id='calendar' class='calendar-example'>
+      </div>
+    </div>
+    <div class='sidebar-layout__sidebar'>
+      <h3>Other demos</h3>
+      <ul>
+        <li><a href='/docs/vertical-resource-mixed-demo' target='_blank'>Vertical resource view</a></li>
+        <li><a href='/docs/timeline-custom-view-demo' target='_blank'>Custom scale/duration</a></li>
+        <li><a href='/docs/addResource-demo' target='_blank'>Dynamic resource adding</a></li>
+        <li><a href='/docs/external-dragging-timeline-demo.html' target='_blank'>External drag-n-drop</a></li>
+        <li><a href='/docs/timeline-resourceGroupField-demo' target='_blank'>Resource grouping</a></li>
+        <li><a href='/docs/resourceColumns-demo' target='_blank'>Data columns</a></li>
+        <li><a href='/docs/resourceColumns-grouping-demo' target='_blank'>Data column grouping</a></li>
+        <li><a href='/docs/eventOverlap-off-timeline-demo' target='_blank'>Disallowed event overlap</a></li>
+        <li><a href='/docs/theme-chooser-timeline-demo' target='_blank'>Theming</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class='text-content'>
+    <p>
+      <strong>Documentation:</strong>
+      &nbsp;
+      &nbsp;
+      <a href='/docs/scheduler'>Getting Started</a>
+      &nbsp;
+      &middot;
+      &nbsp;
+      <a href='/docs'>Full Documentation</a>
+    </p>
+  </div>
+    </div>
+  </div>
+
+
+  
+<div class='footer'>
+  <div class='footer__container container'>
+    <div class='footer__left'>
+      
+      <ul>
+        <p>News:</p>
+        <li>
+          Blog &mdash;
+          <a href='https://fullcalendar.io/blog/2019/04/react-vue-and-angular-connectors'>
+            React, Vue, and Angular Connectors
+          </a>
+          (Apr 5)
+        </li>
+        <li>
+          Hiring &mdash;
+          <a href='https://fullcalendar.io/opportunities'>Test Automation Engineer</a>,
+          <a href='https://fullcalendar.io/opportunities'>Technical Documentation Writer</a>
+        </li>
+      </ul>
+    </div>
+    <div class='footer__right'>
+      <p>
+        &copy; 2019&nbsp; FullCalendar LLC
+      </p>
+      <ul class='inline-list'>
+        <li><a href='https://github.com/fullcalendar' target='_blank'>GitHub</a></li>
+        <li><a href='https://fullcalendar.io/blog'>Blog</a></li>
+        <li><a href='/donate'>Donate</a></li>
+        <li><a href='/license'>License Information</a></li>
+      </ul>
+      <p>
+        <a href='https://docs.google.com/forms/d/e/1FAIpQLSf9mPTzy0tMSRN53y0CSnHLgS6uwlne2sK-tcwIbUZzs_LOUA/viewform?usp=sf_link'>
+          Does your company use FullCalendar?
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

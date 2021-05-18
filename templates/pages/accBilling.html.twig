@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Account</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css"/> 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{asset('plugins/icheck-bootstrap/skins/flat/blue.css')}}" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+</head>
+
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    {{ include('blocks/sidebar_menu.html.twig') }}
+    <!-- /.navbar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container settings">
+
+                <div class="row mt-3">
+                    <div class="col-lg-8">
+                        <div class="card card-custbl card-outline h-100">
+
+                            <div class="card-header">
+                                <h5 class="card-title m-0">Account</h5>
+                          
+                            </div>
+
+                            <div class="card-body p-0" style="width: 100%">
+                                <div class="row border-bottom mx-0">
+                                    
+                                    <div class="col-9 p-0">
+                                        <div class="row py-4">
+                                            <div class="col-8 p-0 pl-4">
+                                                <h6 class="m-0">Your Plan</h6>
+                                                <h5 id="scheduleingItem" class="m-0 text-secondary mb-2" style="display: none">Scheduling pro</h5>
+                                                <h5 id="hiringItem" class="m-0 text-secondary mb-2" style="display: none">+Hiring</h5>
+                                                <h5 id="availablityItem" class="m-0 text-secondary mb-2" style="display: none">+Availability</h5>
+                                                <h5 id="attendanceItem" class="m-0 text-secondary mb-2" style="display: none">+Attendance</h5>
+                                                <h5 id="packageItem" class="m-0 text-secondary mb-2" style="display: none">+Package free</h5>
+                                            </div>
+                                            <div class="col-4 p-0">
+                                                <h6 class="text-right mr-4">Total Price(<span id="timeBilling"></span>)</h6>
+                                                <h3 id="showPriceItem" class="text-right mr-4"></h3>
+                                            </div>
+                                            
+                                        </div>
+                                        <p class="pl-4">
+                                            <span id="subtitlePrice"></span>
+                                            <span id="subtitleUser"></span>
+                                            <span id="subtitleMonth"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-3 p-0 border-left">
+                                        <div class="py-4">
+
+                                            <h6 class="pl-4">Account Holder</h6>
+                                            <div class="pl-4 fullname text-capitalize">
+                                                <h6></h6>
+                                            </div>
+                                         
+                                            <a href="#" class="pl-4 text-success" data-toggle="modal" data-target="#TransferAccount">Transfer Ownership</a>                                         
+                                         
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row p-4 ml-4">
+                                    <div class="col-10">Current Users</div>
+                                    <div class="col-2">
+                                        <button type="button" class="btn btn-light border" data-toggle="modal" data-target="#ADDUSER">ADD USER</button>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="progress-group">
+                                            <h5 class="d-inline">
+                                                <span class="numberOfEmployeeSubmited"></span> out of 
+                                                <span class="numberOfEmployee"></span> used | 
+                                                <span id="numberOfEmployeeLeft"></span> spots left
+                                            </h5>
+                                            <span class="float-right"><b class="numberOfEmployeeSubmited2"></b>/ <span class="numberOfEmployee2"></span></span>
+                                            <div class="progress progress-sm mt-1">
+                                                <div class="progress-bar bg-primary"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card card-custbl card-outline h-100">
+
+                            <div class="card-header">
+                                <h5 class="card-title m-0">Your Plan</h5>
+                                <div class="card-tools">
+                                    <a href="{{path('Home',{'path':'pricing'})}}" class="btn btn-custbl btn-sm float-right">Upgrade plan</a>
+                                </div>
+                            </div>
+
+                            <div class="card-body p-0" >
+                                <div class="row pt-4 pl-3 mt-2 ml-4">
+                                    <div class="col-11 p-4" id="picPlan" data-toggle="modal" data-target="#billingInfo" style="cursor: pointer">
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <div class="card card-custbl card-outline">
+
+                            <div class="card-header">
+                                <h5 class="card-title m-0">Invoice History</h5>
+                            </div>
+
+                            <div class="card-body table-responsive p-0 h-25 card-custom" >
+
+                                <table class="table table-head-fixed table-sm" id="billing">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>DESCRIPTION</th>
+                                        <th>DATE</th>
+                                        <th>RECEIPT</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- right side bar-->
+        {{ include('blocks/breadcrumb.html.twig') }}
+
+        <!-- Main Footer -->
+        {{ include('blocks/footer.html.twig') }}
+
+    </div>
+</div>
+
+<!-- billing information modal -->
+
+
+<div class="modal fade" id="billingInfo" tabindex="-1" role="dialog" aria-labelledby="billingInfoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="billingInfoLabel">show Billing</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="title">Billing name</label>
+                <input type="text" id="billingName" class="form-control" name="billingName" disabled ="disabled"/>
+            </div>
+            <div class="col-6">
+                <label for="title">Price</label>
+                <input type="text" id="billingPrice" class="form-control" name="billingPrice" disabled ="disabled"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="title">Number of user</label>
+                <input type="text" id="numberOfUser" class="form-control" name="numberOfUser" disabled ="disabled"/>
+            </div>
+            <div class="col-6">
+                <label for="title">Period</label>
+                <input type="text" id="numberOfPeriod" class="form-control" name="numberOfPeriod" disabled ="disabled"/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="title">UseScheduler</label>
+                <input type="text" id="billingSchdule" class="form-control" name="billingSchdule" disabled ="disabled"/>
+            </div> 
+            <div class="col-6">
+                <label for="title">UseAttendance</label>
+                <input type="text" id="billingAttendace" class="form-control" name="billingAttendace" disabled ="disabled"/>
+            </div> 
+        </div>
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="title">UseAvailability</label>
+                <input type="text" id="billingAvailabil" class="form-control" name="billingAvailabil" disabled ="disabled"/>
+            </div> 
+            <div class="col-6">
+                <label for="title">UseHiring</label>
+                <input type="text" id="billHiring" class="form-control" name="billHiring" disabled ="disabled"/>
+            </div> 
+        </div>
+        <div class="row mb-3">
+            <div class="col-6">
+                <label for="title">Free billing</label>
+                <input type="text" id="freeBilling" class="form-control" name="freeBilling" disabled ="disabled"/>
+            </div> 
+            <div class="col-6">
+                <label for="title">Currency name</label>
+                <input type="text" id="currencyName" class="form-control" name="currencyName" disabled ="disabled"/>
+            </div> 
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="TransferAccount" tabindex="-1" role="dialog" aria-labelledby="TransferAccountLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="TransferAccountLabel">Transfer Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+            You are about to change the Account Holder. Select who you would like the Account 
+            Holder to be and you will be emailed instructions to complete the process.
+        </p>
+
+        <select id="selectUserTransfer" class="form-control mb-4">
+
+        </select>
+
+        <div class="form-check ml-1">
+            <input type="checkbox" class="form-check-input" id="refresh_bank">
+            <label class="form-check-label" for="refresh_bank">Remove bank account</label>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success text-white P-2" data-dismiss="modal" id="accountTransfer">TRANSFER</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="ADDUSER" tabindex="-1" role="dialog" aria-labelledby="ADDUSERLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <div class="detailsShowViewPlan" class="mr-4 mt-5">
+            <p class="text-center font-weight-normal pl-5">PLAN DETAILS</p>
+            <p class="text-center font-weight-bold m-0 pl-5">SCHEDULING PRO</p>
+            <p class="text-center font-weight-light pl-5"><span id="perUsers" style="font-size: 16px; font-weight: bold;"></span> PER USER/MONTH</p>
+            
+        </div>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {# <div class="row">
+            <div class="col-12 text-center pb-2 pb-2 text-success">BILLING PERIOD</div>
+            <div class="col-12 pb-4 mx-auto text-center">
+                <button type="button" class="btn btn-success text-white font-weight-bold border px-4" style="width: 200px">MONTHLY</button>
+                <button type="button" class="btn btn-light text-secondary font-weight-bold border px-4" style="width: 200px">ANNNULLY</button>
+                <div class="m-auto boxDetailAnnully">
+                    <span class="showAccountMony">Save $184</span> 
+                    <span class"showTitleAccountMony">
+                        per year by switching to Annual Billing!
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="border-bottom"></div> #}
+        {# counter user #}
+        <div class="row">
+            <div class="col-2 p-4">
+                <h3>
+                    <i onclick="minusUser()" style="cursor: pointer;" class="fas fa-minus-circle pt-2 text-gray"></i>
+                </h3>
+            </div>
+            <div class="col-8 p-4">
+                <h6 class="m-0 text-center">USERS</h6>
+                <h4 id="userValue" class="m-0 text-center"></h4>
+            </div>
+            <div class="col-2 p-4">
+                <h3>
+                    <i onclick="plusUser()" style="cursor: pointer;" class="fas fa-plus-circle pt-2 text-gray"></i>
+                </h3>
+            </div>
+        </div>
+        <div class="border-bottom"></div>
+        <div class="row">
+            <div class="col-6">
+                <h6 class="pl-2 pb-2 pt-4 text-secondary">SUBTOTAL</h6>
+                <h6 class="pl-2 pb-2 text-secondary">TAX</h6>
+                <h6 class="pl-2 pb-2 text-secondary">TOTAL MONTHLY</h6>
+            </div>
+            <div class="col-6">
+                <h6 class="pr-2 pb-2 pt-4 text-right" id="subtotalExchange"><span id="subtotalSymbol"></span> 0.00</h6>
+                <h6 class="pr-2 pb-2 text-right"><span id="taxSymbol"></span> 0.00</h6>
+                <h6 class="pr-2 pb-2 text-right" id="totalExchange"><span id="totalSymbol"></span> 0.00</h6>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <p>By continuing, you agree our 
+            <a href="#" class="text-green">terms of service</a>, 
+            <a href="#" class="text-green">privacy policy</a>, and 
+            <a href="#" class="text-green">refund policy</a>.
+        </p>
+
+        <button type="button" class="btn btn-success text-white P-2 ml-5" id="purchesUser" data-dismiss="modal">PURCHASE</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('js/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('js/demo.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- date-range-picker -->
+<script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- DataTables -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sl-1.3.1/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<!-- bootstrap color picker -->
+<script src="{{asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
+<!-- icheck -->
+<script src="{{asset('plugins/icheck-bootstrap/icheck.js')}}"></script>
+<!-- ChartJS -->
+<script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
+
+<!-- mine script -->
+<script src="{{asset('js/config.js')}}"></script>
+<script src="{{asset('js/demoall.js')}}"></script>
+<script src="{{asset('js/pages/accBilling.js')}}"></script>
+
+
+</body>
+</html>

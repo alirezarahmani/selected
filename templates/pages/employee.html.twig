@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Employees</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sl-1.3.1/datatables.min.css"/>
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+</head>
+
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    {{ include('blocks/sidebar_menu.html.twig') }}
+    <!-- /.navbar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 boxRequest">
+                        <div class="card mt-4 card-custbl card-outline">
+                            <div class="card-body">
+
+                                <!-- Widget: user widget style 2 -->
+                                {{ include('blocks/navbar.html.twig') }}
+                                <!-- /.widget-user -->
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9">
+
+                        <div class="card card-custbl card-outline mt-4">
+                            <div class="card-header">
+                                <h5 class="card-title m-0">Employees</h5>
+                            </div>
+                            <div class="card-body table-responsive p-0 h-500 card-custom" >
+
+                                <table class="table table-head-fixed table-sm" id="employees" >
+                                    <thead>
+                                    <tr>
+                                        <th >
+                                            <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                                                <i class="far fa-square"></i>
+                                            </button>
+                                        </th>
+
+                                        <th >Employees</th>
+                                        <th >Positions</th>
+                                        <th >Schedules</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody >
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- right side bar-->
+    {{ include('blocks/breadcrumb.html.twig') }}
+
+    <!-- Main Footer -->
+    {{ include('blocks/footer.html.twig') }}
+
+</div>
+
+
+
+
+<!-- modal add employee -->
+<div class="modal fade" id="modal-addemp">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title font-weight-bold">Add Employee</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" id="frmsubmitEmployee" class="default-form form-horizontal box">
+                <div class="modal-body">
+                    <input type="hidden" name="editIdemp" id="editIdemp">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="nav flex-column nav-tabs" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="vert-detail-tab" data-toggle="pill" href="#detail-tab" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Employee Details</a>
+                                <a class="nav-link" id="vert-schedule-tab" data-toggle="pill" href="#schedule-tab" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">Schedules</a>
+                                <a class="nav-link blockHideSupvsr" id="vert-payroll-tab" data-toggle="pill" href="#payroll-tab" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">Payroll/Wage</a>
+                                <a class="nav-link" id="vert-note-tab" data-toggle="pill" href="#log-tab" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Log/Notes</a>
+                                <a class="nav-link" id="vert-advance-tab" data-toggle="pill" href="#advance-tab" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Advanced Details</a>
+
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="tab-content" id="vert-tabs-tab">
+                                <div class="tab-pane fade show active" id="detail-tab" role="tabpanel" aria-labelledby="detail-tab">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="firstname">First Name</label>
+                                                <input type="text" class="form-control mt-2 mb-4" id="firstname" name="firstname">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control mt-2 mb-4" id="email" name="email">
+                                            </div>
+                                            <div class="col-4">
+                                                <label for="lastname">Last Name</label>
+                                                <input type="text" class="form-control mt-2 mb-4" id="lastname" name="lastname">
+                                                <label for="mobile-num">Mobile Number</label>
+                                                <input type="text" class="form-control mt-2 mb-4" id="mobile-num" name="mobile-num" >
+                                            </div>
+                                            <div class="col-3">
+                                                <img src="{{asset('img/img133.jpg')}}" alt="avatar" class="img-fluid mt-2" id="picurl" name="picurl"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row roleListEmpModal">
+                                            <div class="col-4">
+                                                <label>Role</label>
+                                                <select class="form-control role-list mt-2" id="roleList" style="width: 100%;">
+                                                    <option value="" disabled selected>select...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="form-group">
+                                                <label style="line-height: 30px">What Position(s) does this person work?</label>
+{#                                                <i class="fas fa-chevron-down" style="z-index: 1000; position: absolute"></i>#}
+                                                <select class="select2 pos-list form-control" multiple="multiple" data-placeholder="Select..." name="posList[]" id="posList"
+                                                        style="width: 100%;">
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="schedule-tab" role="tabpanel" aria-labelledby="schedule-tab">
+
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label style="line-height: 30px">Schedules</label>
+                                            <select class="select2 sch-list" id="schList" name="schList[]" multiple="multiple" data-placeholder="Select Schedule to Add"
+                                                    style="width: 100%;">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="payroll-tab" role="tabpanel" aria-labelledby="payroll-tab">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="base-rate">Base Hourly Rate</label>
+                                            <div class="input-group mt-2">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon1">£</span>
+                                            </div>
+                                                <input type="text" id="base-rate" name="base-rate" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="overtimeRate">Base Hourly Rate Ovetime</label>
+
+                                            <div class="input-group mt-2">
+                                            <span class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon1">£</span>
+                                            </span>
+                                                <input type="text" class="form-control" value="0" id="overtimeRate" name="overtimeRate"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mt-4">
+                                            <label for="">Max Hours/Week</label>
+                                            <input type="text" class="form-control mt-2" value="0" id="max-hour" name="max-hour"/>
+                                        </div>
+                                        <div class="col-12 mt-4">
+                                            <div class="form-check pl-0">
+                                                <input type="checkbox" id="exempt" name="exempt"  value="false" >
+                                                <label for="exempt" class="ml-2">Employee is exempt</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-check pl-0">
+                                                <input type="checkbox" id="allow" name="shiftEdit" value="false" />
+                                                <label for="allow" class="ml-2">Allow Timesheet Editing & Disable Attendance Alerts To Management</label>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--<div class="col-7 append-pos">
+                                        <label>Hourly Rate By Position</label>
+                                    </div>-->
+
+                                </div>
+
+                                <div class="tab-pane fade" id="log-tab" role="tabpanel" aria-labelledby="log-tab">
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label for="note">Log/Notes - <small>Visible To Only Managers And Supervisors</small></label>
+                                            <textarea id="note" name="note" class="form-control mt-2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                        <label for="uploadFiles">Documents</label>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                                <input type="file" id="uploadFiles">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="advance-tab" role="tabpanel" aria-labelledby="advance-tab">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-check pl-0">
+                                                <input type="checkbox" id="useTimezone" class="useTimezone " name="useCustomTimezone" value="false" />
+                                                <label for="useTimezone">Use Timezone</label>
+                                            </div>
+                                            <div class="form-group mt-2">
+
+                                                <select class="use-timezone seltimezone select2 form-control" style="width: 100%;" disabled="disabled" id="seltimezone" name="seltimezone" data-placeholder="Select timezone" >
+                                                    <option value="" disabled selected>Select timezone</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <label for="employeeID">Employee ID</label>
+                                            <input type="text" class="form-control mt-2" id="employeeID" name="employeeID"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-check pl-0">
+                                                <input type="checkbox" id="hide-scheduler" name="hide-scheduler" value="false">
+
+                                                <label for="hide-scheduler">Hide In The Scheduler</label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label class="row ml-1 mt-2 border-top pt-2" >Contract Type</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="radio icheck-primary mr-5">
+                                                <input type="radio" id="zero" name="contract" value="zero"/>
+                                                <label for="zero">Zero</label>
+                                            </div>
+                                            <div class="radio icheck-primary">
+                                                <input type="radio" id="fixed" name="contract" value="fixed"/>
+                                                <label for="fixed">Fixed</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 contractCondition" style="display: none;">
+                                            {#<label for="countDays" class="col-sm-2 control-label">Days/Week</label>#}
+                                            <input type="text" class="form-control" id="countDays" name="countDays" placeholder="Days/Week">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                    <button id="edit-employee" type="button" class="btn btn-custbl float-right btn-sm editemployee" data-dismiss="modal" style="display: none;">Save Empployee</button>
+                    <button id="add-employee" type="button" class="btn btn-custbl float-right btn-sm addemployee" data-dismiss="modal">Add Employee</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- modal delete employee -->
+<div class="modal fade" id="modal-delemp">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-capitalize">Delete Employee</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="p-2">
+                    <div class="row">
+                        Deleting this employee will remove his/her from the schedule <br>
+                        and upcoming shifts are returning to OpenShifts.
+                    </div>
+                    <div class="row mt-3" style="background-color: lightgray;height: 80px;">
+                        <img class="img4delete" src="{{asset('img/pic4.png')}}" style="width: 50px;height: 50px;margin: 15px;">
+                        <div class="mt-3"><span class="fullname text-uppercase"></span> <br>
+                            <span class="upcoming-shifts"></span> upcoming shift(s)</div>
+
+                    </div>
+                    <!--     <div class="row mt-2">
+                             <div class="icheck-primary ">
+
+                                 <input type="checkbox" id="employment" name="employment" value="true" checked />
+                                 <label for="employment"><span class="firstnameemp text-uppercase"></span>'S EMPLOYMENT IS BEING TERMINATED</label>
+
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="form-group">
+                                 <label for="terminateDate">Termination Date</label>
+                                 <input type="text" class="form-control" id="terminateDate">
+                             </div>
+                         </div>-->
+                    <input type="hidden" id="emp-id" name="emp-id">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark btn-sm" data-dismiss="modal">Cancel</button>
+                <button id="delete-employee" type="button" class="btn btn-danger btn-sm float-right"  data-dismiss="modal">Delete Employee</button>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- modal import employee -->
+<div class="modal fade" id="modal-impEmp">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-capitalize">Employee Import</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="p-2">
+                <div class="row">
+                    <div class="ml-2">
+                        Start with our template...
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <button type="button" class="btn btn-outline-primary btn-sm">Download Our Template</button>
+
+                    </div>
+
+                    <div class="m-2">
+                        You can also use your own file. We accept CSV, XLS, or XLSX file types.
+                    </div>
+                    <div class="col-6">
+                        <span class="font-weight-bold">We require these fields:</span>
+                        <ul>
+                            <li>First name</li>
+                            <li>Last name</li>
+                            <li>Email, phone, or employee ID (at least one)</li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <span class="font-weight-bold">These fields are optional:</span>
+                        <ul>
+                            <li>Schedules</li>
+                            <li>Positions</li>
+                            <li>Base hourly rate</li>
+                            <li>Max hours</li>
+                        </ul>
+                    </div>
+                    <div class="m-2">
+                        If you use your own file, be sure the first row has titles for each column of data:
+                    </div>
+                   <img class="m-2" src="{{asset('img/example-graphic@2x-d10446.png')}}" height="47" width="330">
+
+
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="delete-employee" type="button" class="btn btn-outline-primary btn-sm float-right"  data-dismiss="modal">Upload File</button>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('js/adminlte.js') }}"></script>
+<script src="{{asset('js/demo.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- date-range-picker -->
+<script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+<!-- DataTables -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sl-1.3.1/datatables.min.js"></script>
+
+<!-- mine script -->
+<script src="{{asset('js/config.js')}}"></script>
+<script src="{{asset('js/demoall.js')}}"></script>
+<script src="{{asset('js/pages/employee.js')}}"></script>
+
+
+
+</body>
+</html>

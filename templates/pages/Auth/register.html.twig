@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Workplan | Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+
+    <style>
+        .select2-selection__rendered {
+            padding-top: 5px !important;
+            font-size: 14px;
+            text-transform: capitalize;
+        }
+    </style>
+
+</head>
+<body class="hold-transition login-page">
+<div class="login-box" style="width: 600px;">
+    <div class="login-logo mb-0">
+        <img src="{{asset('img/selected-time-logo.png')}}" width="200px" height="110px">
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body " style="padding: 6rem;">
+
+            <h3 class="text-center">Welcome to Workplan</h3>
+
+            <p class="login-box-msg"><small>Scheduling and communication are about to get easier. <br>
+                Get started by telling us about yourself.
+                </small>
+            </p>
+            <div id="register_disabled">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control reginputs" placeholder="First Name" id="firstname" name="firstname">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control reginputs" placeholder="Last Name" id="lastname" name="lastname">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="far fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control reginputs" placeholder="Email" id="emailreg" name="emailreg">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control reginputs" placeholder="Password" id="passwordreg" name="passwordreg">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-key"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+
+                    <input type="tel" class="form-control reginputs" placeholder="Mobile Number" id="mobile" name="mobile" >
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-mobile-alt"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3" hidden>
+                    {#                    <select id="optSelect" class="form-control reginputs timezoneSelect"></select>#}
+                    <select id="optSelect" style="width: 100%; border-radius: 3px; padding: 8px;">
+                        <option value="Europe/London" class="form-control">Europe/London</option>
+                    </select>
+                </div>
+
+                <div class="row" hidden>
+                    <div class="col-8">
+                        <div >
+                            <input type="checkbox" id="useTimezone">
+                            <label for="useTimezone">
+                                <small> Use Custom Timezone </small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-8">
+                        <div >
+                            <input type="checkbox" id="agree">
+                            <label for="agree">
+                                <small> I agree to <a href="#">Terms of service</a> and <a href="#">Privacy policy</a>
+                                </small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+
+                    <button type="button" class="btn btn-custbl btn-block signup" disabled="disabled">Sign Up</button>
+                    <button class="btn btn-custbl btn-block" id="imgLoading" type="button" disabled style="display: none">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                </div>
+                <br>
+                 <button type="button" class="btn btn-custbl btn-block" disabled="disabled">
+                <div class="">
+                    <a class="clr" href="{{ path('Home',{"path":'login'}) }}"><font color="#fff">Already have an account?</font></a>
+                     </div></button>
+
+            </div>
+
+            <div class="callout callout-success mt-4 successCallout" style="display: none;">
+                <h5 style="color: darkgreen;">Registration Successful!</h5>
+
+                <p>Confirm your email</p>
+            </div>
+
+
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+
+
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+<!--My Script-->
+<script src="{{asset('js/config.js')}}"></script>
+<script src="{{asset('js/pages/auth.js')}}"></script>
+</body>
+</html>

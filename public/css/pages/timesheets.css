@@ -1,0 +1,101 @@
+table.dataTable{
+    font-size: 14px;
+}
+
+.table-item-font{
+    font-size: 12px !important;
+    font-weight: 400;
+}
+#timesheets-period{
+    margin-bottom: 30px;
+}
+#timesheets tr > td{
+    vertical-align: top;
+}
+td .td-cell{
+    width: 100%;
+}
+td .td-cell:nth-child(odd) {
+    background: rgba(65, 111, 255, 0.31);
+}
+td .td-cell:nth-child(even) {
+    background: rgba(0, 128, 0, 0.22);
+}
+
+.detail-ls{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.detail-ls li{
+    display: inline-block;
+    max-width: 40%;
+    overflow: hidden;
+    padding-right: 1px;
+}
+.table-loader{
+    z-index: 9999;
+
+}
+.table-loader .spinner-border{
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    z-index: 9999;
+}
+.line-height-30{
+    line-height: 30px !important;
+}
+.loader-modal{
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,0.2);
+
+}
+.loader-modal .wrap-spinner{
+    position: absolute;
+    top:50%;
+    right: 50%;
+    transform: translate(0,-50%);
+
+}
+.btn-group.btn-group-sm .fas {
+    font-size: 10px;
+}
+
+#timesheets_wrapper table thead tr{
+    background-color: #adb7bc;
+}
+.buttons-print{
+    border: 1px solid #666;
+    background-color: rgb(233, 233, 233);
+}
+.buttons-print:hover{
+    cursor: pointer;
+    background-color: #e0e0e0;
+}
+.buttons-print:focus{
+    box-shadow: inset 1px 1px 3px #999999;
+    background-color: #cccccc;
+}
+
+@media print {
+    table.dataTable thead th, table.dataTable thead td {
+        padding: 0px 5px !important;
+        border-bottom: 1px solid #111 !important;
+    } 
+}
+
+.fa-pencil-alt {
+    color: #6c757d;
+}
+
+.fa-pencil-alt:hover {
+    color: #dc3545!important;
+}
+
+

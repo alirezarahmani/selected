@@ -1,0 +1,102 @@
+{% block firebase_script %}
+    <script></script>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+
+    <script >
+    var firebaseConfig = {
+    apiKey: "AIzaSyAzH4MX1xhYC0jzgyUy0vBHIYkgkiAZal4",
+    authDomain: "selected-task.firebaseapp.com",
+    databaseURL: "https://selected-task.firebaseio.com",
+    projectId: "selected-task",
+    storageBucket: "selected-task.appspot.com",
+    messagingSenderId: "7150548916",
+    appId: "1:7150548916:web:da8872d338ea24c1b924e1",
+    measurementId: "G-CXZH69Z7X8"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js"></script>
+    <script>
+
+        let token = localStorage.getItem('token')
+        console.log(token)
+
+        async function postData (url,data) {
+            let response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': "application/json",
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data),
+            });
+            let responseData = await response.json();
+            return responseData;
+        };
+
+        const messaging = firebase.messaging();
+        messaging.usePublicVapidKey('BD1cnJ48ogxaPc-_k3fZtzcCj7ZmCGNREEqrObW6eFY0aaO9r-uNKKCmClPSqP6jYWmVqn7d_snVpx4m_9kS17k');
+
+
+        function requestPermission() {
+            console.log('Requesting permission...');
+            // [START request_permission]
+            Notification.requestPermission().then((permission) => {
+                if (permission === 'granted') {
+                    console.log('Notification permission granted.');
+                    // TODO(developer): Retrieve an Instance ID token for use with FCM.
+                    // [START_EXCLUDE]
+                    // In many cases once an app has been granted notification permission,
+                    // it should update its UI reflecting this.
+                    resetUI();
+                    // [END_EXCLUDE]
+                } else {
+                    console.log('Unable to get permission to notify.');
+                }
+            });
+            // [END request_permission]
+        }
+
+
+        function updateUIForPushEnabled(currentToken) {
+            // alert(currentToken);
+        }
+
+        function resetUI() {
+            messaging.getToken().then((currentToken) => {
+                // alert(currentToken);
+                console.log(currentToken);
+
+
+
+                let businessInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+                let businessId = businessInfo['userBusinessRoles']['0']['business'];
+                let data = {
+                    registrationtoken: currentToken,
+                    business: businessId
+                }
+
+                postData(base_url+'/api/notifications', data)
+                .then(data => {
+                    console.log(data, 'data')
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+
+            }).catch((err) => {
+                console.log('An error occurred while retrieving token. ', err);
+
+            });
+            // [END get_token]
+        }
+        requestPermission()
+        resetUI();
+    </script>
+
+{% endblock %}

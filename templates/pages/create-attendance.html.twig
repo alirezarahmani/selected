@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Workplan | Create Attendance</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box" style="width: 600px;">
+    <div class="login-logo mb-0">
+        <img src="{{asset('img/selected-time-logo.png')}}" width="200px" height="100px">
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="row p-4">
+            <div class="col-4">
+                <a href="{{path('Home',{path:'search'})}}"><i class="fas fa-arrow-left fa-xs mr-1"></i>Back</a>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <a class="float-right" href="{{path('Home',{path:'login'})}}"><i class="fas fa-power-off fa-xs mr-1"></i>Logout</a>
+            </div>
+        </div>
+
+        <div class="card-body login-card-body " style="padding: 0 6rem 3rem 6rem;">
+            <h3 class="text-center">Complete Your Attendance</h3>
+
+            <p class="login-box-msg"><small>Reduce labor costs by tracking time aligned with scheduled hours ans managing timesheets in one place<br>
+
+                </small>
+            </p>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <label style="line-height: 30px">Payroll Length</label>
+                    <select class="select2 form-control mb-3 placeinputs"  data-placeholder="Select..." name="payrollLen" id="payrollLen"
+                            style="width: 100%;">
+                        <option value="null">Select...</option>
+                        <option value="7">Every Week</option>
+                        <option value="14">Every 2Week</option>
+                        <option value="30">Every Month</option>
+                    </select>
+                </div>
+            </div>
+
+                <div class="row">
+                    <div class="col-12">
+                    <label style="line-height: 30px">Early Clock In Allowed</label>
+                        <select class="select2 form-control mb-3 placeinputs" name="earlyMin" id="earlyMin"style="width: 100%;">
+                            <option value="null">Preset amounts</option>
+                            <option value="5">5 min</option>
+                            <option value="10">10 min</option>
+                            <option value="15">15 min</option>
+                            <option value="30">30 min</option>
+                            <option value="60">60 min</option>
+                            <option value="120">2 hours</option>
+                        </select>
+                    </div>
+                </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <label for="">Near By Location Distance For Clock In/Out</label>
+                    <div class="input-group mb-3 mt-2">
+                        <select class="select2 form-control mb-3 placeinputs" name="nearDistance" id="nearDistance" style="width: 100%;">
+                            <option value="null">Preset amounts</option>
+                            <option value="20">20 meters</option>
+                            <option value="100">100 meters</option>
+                            <option value="250">250 meters</option>
+                            <option value="1609">1 mile</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+                <div class="row mt-2">
+                    <button type="button" id="createAttendance" class="btn btn-custbl btn-block mt-3" disabled="disabled">Start Scheduling</button>
+                    <button class="btn btn-custbl btn-block" id="imgLoading" type="button" disabled style="display: none">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                </div>
+
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+<!--My Script-->
+<script src="{{asset('js/config.js')}}"></script>
+<script src="{{asset('js/pages/create-attendance.js')}}"></script>
+
+</body>
+</html>

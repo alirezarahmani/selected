@@ -1,0 +1,4 @@
+<h2>Your shift has been changed.</h2>
+<ul>
+    {{  shifts|map(p => "start time:#{p.startTime} /end time:#{p.endTime}")|join(', ') }}
+</ul>

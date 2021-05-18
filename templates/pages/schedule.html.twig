@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Schedules</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sl-1.3.1/datatables.min.css"/>
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+    <style>
+
+        #map{
+            border-radius: 5px;
+            width: 100%;
+            height: 200px;
+            border:0
+        }
+        #pac-container {
+            padding-bottom: 12px;
+        }
+        #pac-input {
+            background-color: #fff;
+            font-weight: 300;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+        }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+        #accommodation_address {
+            width: 20%;
+            position: absolute;
+            left: 10%;
+            top: 10%;
+            background-color: white;
+            border: 1px solid gray;
+            z-index: 100;
+        }
+        .pac-container {
+            z-index: 10000 !important;
+        }
+    </style>
+
+</head>
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    {{ include('blocks/sidebar_menu.html.twig') }}
+    <!-- /.navbar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container">
+               {# <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark"> Schedule</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Schedule</li>
+                        </ol>
+                    </div>
+                </div>#}
+            </div>
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 boxRequest">
+                        <div class="card card-custbl card-outline">
+                            <div class="card-body">
+
+                                    <!-- Widget: user widget style 2 -->
+                                {{ include('blocks/navbar.html.twig') }}
+                                    <!-- /.widget-user -->
+
+                            </div>
+                        </div>
+
+                    {#    <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+
+                                <p class="card-text">
+                                    Some quick example text to build on the card title and make up the bulk of the card's
+                                    content.
+                                </p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>#}
+                    </div>
+                    <!-- /.col-md-6 -->
+                    <div class="col-lg-9">
+
+                        <div class="card card-custbl card-outline">
+                            <div class="card-header">
+                                <h5 class="card-title m-0">Schedules</h5>
+                            </div>
+                            <div class="card-body table-responsive p-0 h-500 card-custom" >
+
+                                <table class="table table-head-fixed hover" id="schedules" style="width: 100%;">
+                                    <thead>
+                                    <tr>
+
+                                        <th >Schedules</th>
+                                        <th >Address</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody >
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- right side bar-->
+    {{ include('blocks/breadcrumb.html.twig') }}
+
+    <!-- Main Footer -->
+    {{ include('blocks/footer.html.twig') }}
+
+</div>
+
+<!-- modal add schedule -->
+<div class="modal fade" id="modal-addsch">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title font-weight-bold">Add Schedule</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="row px-4">
+                <form  method="POST" id="frmsubmitSchedule" class="default-form form-horizontal box"  >
+                    <div class="modal-body">
+                        <input type="hidden" id="editIdsch" name="editIdsch">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="name">Name*</label>
+                                <input type="text" class="form-control mt-2" id="name" name="name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="hours">Max Hours/week</label>
+                                <input type="text" class="form-control mt-2" id="hours" value="0" name="hours">
+                            </div>
+                        </div>
+                        <div class="row my-3">
+
+                            <div class="col-12">
+                                <label for="pac-input">Address</label>
+                                <div id="pac-container">
+                                    <input id="pac-input" type="text" class="form-control mb-1 mt-2" placeholder="Enter a location">
+                                </div>
+                                <div id="map"></div>
+                                <input type="hidden" name="latitude" id="latitude">
+                                <input type="hidden" name="langtitude" id="langtitude">
+                            </div>
+
+                        </div>
+                        <div class="row mt-3">
+                            <label for="ip-address" class="ml-2">IP Address For Time Clock Verification</label>
+                            <div class="input-group mb-3 col-12 mt-2">
+                                <input type="text" class="form-control" id="ip-address" name="ip-address" placeholder="000.000.000.000">
+                                <span class="input-group-append">
+                    <button type="button" class="btn btn-info btn-flat"><i class="fas fa-location-arrow"></i></button>
+                  </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="edit-schedule" type="button" class="btn btn-custbl float-right btn-sm editschedule" data-dismiss="modal" style="display: none;">Save Schedule</button>
+                        <button id="add-schedule" type="button" class="btn btn-custbl float-right btn-sm addSchedule"  data-dismiss="modal" disabled="disabled">Add Schedule</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- modal delete schedule -->
+<div class="modal fade" id="modal-delsch">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title titleForDel text-capitalize"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row p-3">
+                    Deleting this schedule will remove its past and future shifts, shift templates, and job sites. <strong>This cannot be undone.</strong>
+
+                    3934 shifts on this schedule will be deleted.
+                </div>
+                <input type="hidden" id="sch-id" name="sch-id">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                <button id="delete-schedule" type="button" class="btn btn-danger btn-sm float-right delsch" data-dismiss="modal">Delete Schedule</button>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('js/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('js/demo.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- date-range-picker -->
+<script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+<!-- DataTables -->
+<script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('plugins/datatables/dataTables.bootstrap4.js')}}"></script>
+<!-- Google Map -->
+<script src="{{asset('js/googlemap.js')}}"></script>
+
+<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4ZzdNEwCqCeDHK4szjckTih4xIVKFczA&libraries=places&callback=initAutocomplete" async defer ></script>
+
+
+<!-- mine script -->
+<script src="{{asset('js/demoall.js')}}"></script>
+<script src="{{asset('js/config.js')}}"></script>
+<script src="{{asset('js/pages/schedule.js')}}"></script>
+</body>
+</html>

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>timesheets</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet"
+          href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/dt/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sl-1.3.1/datatables.min.css"/>
+    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
+    <!-- timesheet -->
+    <link rel="stylesheet" href="{{ asset('css/pages/timesheets.css') }}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <style>
+        /* Popup container - can be anything you want */
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+        }
+
+        /* Popup arrow */
+        .popup .popuptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
+</head>
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+
+    <div id="setLoading">
+        <div class="rounded box-loading">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    {{ include('blocks/sidebar_menu.html.twig') }}
+    <!-- /.navbar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    {#in this column we only show scheduled employee because ther are only ones who can clock in base on attendanceTimesubscriber#}
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 ">
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h1 class="card-title">
+                                                Pay Period
+                                            </h1>
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <div class="card-tools">
+                                                <select style="width: 100%;" id="timesheets-period"></select>
+
+                                                <button id="close-period" type="button"  class="btn btn-sm btn-block btn-custbl mt-2" style="display: none">
+                                                    Close Pay Period
+                                                </button>
+
+                                                <button id="close-period_modal" data-toggle="modal" data-target="#modalSellerPlan" type="button"  class="btn btn-sm btn-block btn-custbl mt-2" style="display: none">
+                                                    Close Pay Period
+                                                </button>
+
+                                                <button id="export-period" type="button" onclick="window.print()" class="btn btn-sm btn-block btn-custbl" style="display: none">
+                                                    Export
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h1 class="card-title">
+                                            Schedule
+                                        </h1>
+                                    </div>
+                                    <div class="col-md-12 mt-2">
+                                        <select class="form-control" id="boxAllSchedule">
+                                            <option id="all_schedule">All Schedule</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="staff-list" class="card mt-4">
+                            <div class="card-header">
+
+                                <h3 class="card-title">Staff</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-widget="collapse"><i
+                                                class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="nav nav-pills flex-column c-staff-list">
+
+                                </ul>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-9">
+                        <div class="card mt-4">
+
+                            <div class="card-body">
+{#                                <div class="form-group row d-lg-none">#}
+{#                                    <label class="col-sm-2 col-form-label" for="c-staff-select">Staffs</label>#}
+{#                                    <div class="col-sm-10">#}
+{#                                        <select class="custom-select custom-select-sm" id="c-staff-select">#}
+{#                                        </select>#}
+{#                                    </div>#}
+{#                                </div>#}
+                                <div class="table-responsive p-0">
+                                    <div class="table-loader d-none">
+                                        <div class="spinner-border" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+
+                                    <table id="timesheets" class="display cell-border" style="width:100%">
+
+                                            <thead>
+                                                <tr>
+                                                    <th>STAFF</th>{#0#}
+                                                    <th>DAY</th>{#1#}
+                                                    <th>IN</th>{#2#}
+                                                    <th>OUT</th>{#3#}
+                                                    <th>HOLIDAY</th>{#4#}
+                                                    <th>SICK</th>{#5#}
+                                                    <th>SHIFT</th>{#6#}
+                                                    <th>SCHEDULED</th>{#7#}
+                                                    <th>ATTENDED</th>{#8#}
+                                                    <th>DETAIL</th>{#9#}
+                                                    <th>LOGS</th>{#10#}
+                                                    <th>WORKED</th>{#11#}
+                                                    <th>DIFFERENCE</th>{#12#}
+                                                    <th>TOTAL</th>{#13#}
+                                                    <th class="symbolLaborHeader"></th>{#14#}
+                                                    <th>AUTODEDUCTED BREAK</th>{#15#}
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr style="background-color: #adb7bc">
+                                                    <th></th>{#//0#}
+                                                    <th></th>{#1#}
+                                                    <th></th>{#2#}
+                                                    <th></th>{#3#}
+                                                    <th>HOLIDAY</th>{#4#}
+                                                    <th>SICK</th>{#5#}
+                                                    <th></th>{#6#}
+                                                    <th>SCHEDULED</th>{#7#}
+                                                    <th>ATTENDED</th>{#8#}
+                                                    <th></th>{#9#}
+                                                    <th></th>{#10#}
+                                                    <th class="worked-total-footer"></th>{#11#}
+                                                    <th class="symbolLaborFooter"></th>{#13#}
+                                                    <th>AUTODEDUCTED BREAK</th>{#14#}
+
+                                                </tr>
+                                            </tfoot>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- /.card-body -->
+
+                    <!-- /.card -->
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- right side bar-->
+    {{ include('blocks/breadcrumb.html.twig') }}
+
+    <!-- Main Footer -->
+    {{ include('blocks/footer.html.twig') }}
+
+</div>
+
+
+<!-- .add-period-modal -->
+<div class="modal fade" id="modal-periods">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Default Modal</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Select Date range:</label>
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="far fa-calendar-alt"></i>
+                      </span>
+                        </div>
+                        <input type="text" class="form-control float-right" id="period-picker">
+                    </div>
+                    <!-- /.input group -->
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-custbl" id="add-periodDate">Add Period</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.add-period-modal -->
+
+<!-- .edit-period-modal -->
+<div class="modal fade" id="edit-periods">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Periods List</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped c-tb-period">
+                    <thead>
+                    <tr>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.add-period-modal -->
+
+<!-- .add-timesheet-modal -->
+<div class="modal fade" id="add-times">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">add for employee <span id="emp-name-fam"></span></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body position-relative">
+                <div class="loader-modal  ">
+                    <div class="wrap-spinner">
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1">clock in</label>
+                            <div class="form-group">
+                                <div class="input-group date" id="clock-in-add" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                           data-target="#clock-in-add"/>
+                                    <div class="input-group-append" data-target="#clock-in-add"
+                                         data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1">clock out</label>
+                            <div class="form-group">
+                                <div class="input-group date" id="clock-out-add" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                           data-target="#clock-out-add"/>
+                                    <div class="input-group-append" data-target="#clock-out-add"
+                                         data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label class="col-sm-2 col-form-label" for="staticEmail2">schedules</label>
+                            <div class="col-sm-10">
+                                <select class="custom-select custom-select-sm" id="c-schedule-add">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="col-sm-2 col-form-label" for="staticEmail2">position</label>
+                            <div class="col-sm-10">
+                                <select class="custom-select custom-select-sm" id="c-position-add">
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1">break</label>
+                            <small>in minutes</small>
+                            <input id="user-break-add" type="text" class="form-control" value="0">
+
+                        </div>
+                        <div class="col-6">
+                            <label for="shiftAt">shift free?</label>
+
+                            <input id="free-shift" type="checkbox" class="minimal float-right" checked>
+                            <select class="form-control form-control-sm" name="" id="shiftAt" disabled>
+                                <option value="null">no shift</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <button class="primary btn btn-success" id="add-new-attendance">save</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.add-timesheet-modal -->
+
+
+<!-- .edit-timesheet-modal -->
+<div class="modal fade" id="edit-times">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit employee <span id="emp-name-fam"></span></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="attendance-id" name="attendance-id">
+                <div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1">clock in</label>
+                            <div class="form-group">
+                                <div class="input-group date" id="clock-in" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                           data-target="#clock-in"/>
+                                    <div class="input-group-append" data-target="#clock-in"
+                                         data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1">clock out</label>
+                            <div class="form-group">
+                                <div class="input-group date" id="clock-out" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                           data-target="#clock-out"/>
+                                    <div class="input-group-append" data-target="#clock-out"
+                                         data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label class="col-sm-2 col-form-label" for="staticEmail2">schedules</label>
+                            <div class="col-sm-10">
+                                <select class="custom-select custom-select-sm" id="c-schedule-list">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="col-sm-2 col-form-label" for="staticEmail2">position</label>
+                            <div class="col-sm-10">
+                                <select class="custom-select custom-select-sm" id="c-position-list">
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="exampleFormControlInput1">break</label>
+                            <small>in minutes</small>
+                            <input id="user-break" type="text" class="form-control" value="0">
+
+                        </div>
+                    </div>
+                    <button class="primary btn btn-success" id="update-attendance">save</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.edit-timesheet-modal -->
+
+<!-- /day-log-modal -->
+<!-- Modal -->
+<div class="modal fade" id="daylog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Show logs</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="loader-modal log-modal">
+                    <div class="wrap-spinner">
+                        <div class="spinner-grow text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <ul class="log-ls list-unstyled">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- day-log-modal -->
+
+<!-- modal seller plan -->
+
+<div class="modal fade" id="modalSellerPlan" tabindex="-1" role="dialog" aria-labelledby="modalSellerPlanTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalSellerPlanTitle">Purchase plan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 >Your account cannot access this section. To be able to use the features of this section.Please purchase a higher
+            plan
+        </h5>
+      </div>
+      <div class="modal-footer">
+        <a href="{{path('Home',{'path':'pricing'}) }}" class="btn btn-success">Purchase plan</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /.modal seller plan -->
+
+<!-- Modal -->
+<div class="modal fade" id="showLocation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">show location</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="width: 100%">
+                    <span style="width: 50%; margin-left: 20%">Clock in location</span>
+                    <span style="width: 50%; margin-left: 35%">Clock out location</span>
+                </p>
+                <div id="clockInMap" class="float-left ml-5 mr-4 mapStyle"></div>
+                <div id="clockOutMap" class="float-left ml-4 mapStyle"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal add employee -->
+<div class="modal fade" id="modal-addemp">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title font-weight-bold">Edit Employee</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" id="frmsubmitEmployee" class="default-form form-horizontal box">
+                <div class="modal-body">
+                    <input type="hidden" name="editIdemp" id="editIdemp">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="nav flex-column nav-tabs" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="vert-detail-tab" data-toggle="pill" href="#detail-tab" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Employee Details</a>
+                                <a class="nav-link" id="vert-schedule-tab" data-toggle="pill" href="#schedule-tab" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">Schedules</a>
+                                <a class="nav-link blockHideSupvsr" id="vert-payroll-tab" data-toggle="pill" href="#payroll-tab" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">Payroll/Wage</a>
+                                <a class="nav-link" id="vert-note-tab" data-toggle="pill" href="#log-tab" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Log/Notes</a>
+                                <a class="nav-link" id="vert-advance-tab" data-toggle="pill" href="#advance-tab" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Advanced Details</a>
+
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="tab-content" id="vert-tabs-tab">
+                                <div class="tab-pane fade show active" id="detail-tab" role="tabpanel" aria-labelledby="detail-tab">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label for="firstname">First Name</label>
+                                                <input type="text" class="form-control mt-2 mb-4" id="firstname" name="firstname">
+                                                <label for="email">Email</label>
+                                                <input type="email" class="form-control mt-2 mb-4" id="email" name="email">
+                                            </div>
+                                            <div class="col-4">
+                                                <label for="lastname">Last Name</label>
+                                                <input type="text" class="form-control mt-2 mb-4" id="lastname" name="lastname">
+                                                <label for="mobile-num">Mobile Number</label>
+                                                <input type="text" class="form-control mt-2 mb-4" id="mobile-num" name="mobile-num" >
+                                            </div>
+                                            <div class="col-3">
+                                                <img src="{{asset('img/img133.jpg')}}" alt="avatar" class="img-fluid mt-2" id="picurl" name="picurl"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row roleListEmpModal">
+                                            <div class="col-4">
+                                                <label>Role</label>
+                                                <select class="form-control role-list mt-2" id="roleList" style="width: 100%;">
+                                                    <option value="" disabled selected>select...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="form-group">
+                                                <label style="line-height: 30px">What Position(s) does this person work?</label>
+                                                {#                                                <i class="fas fa-chevron-down" style="z-index: 1000; position: absolute"></i>#}
+                                                <select class="select2 pos-list form-control" multiple="multiple" data-placeholder="Select..." name="posList[]" id="posList"
+                                                        style="width: 100%;">
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="schedule-tab" role="tabpanel" aria-labelledby="schedule-tab">
+
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label style="line-height: 30px">Schedules</label>
+                                            <select class="select2 sch-list" id="schList" name="schList[]" multiple="multiple" data-placeholder="Select Schedule to Add"
+                                                    style="width: 100%;">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="payroll-tab" role="tabpanel" aria-labelledby="payroll-tab">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="base-rate">Base Hourly Rate</label>
+                                            <div class="input-group mt-2">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon1">£</span>
+                                                </div>
+                                                <input type="text" id="base-rate" name="base-rate" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="overtimeRate">Base Hourly Rate Ovetime</label>
+
+                                            <div class="input-group mt-2">
+                                            <span class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon1">£</span>
+                                            </span>
+                                                <input type="text" class="form-control" value="0" id="overtimeRate" name="overtimeRate"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 mt-4">
+                                            <label for="">Max Hours/Week</label>
+                                            <input type="text" class="form-control mt-2" value="0" id="max-hour" name="max-hour"/>
+                                        </div>
+                                        <div class="col-12 mt-4">
+                                            <div class="form-check pl-0">
+                                                <input type="checkbox" id="exempt" name="exempt"  value="false" >
+                                                <label for="exempt" class="ml-2">Employee is exempt</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-check pl-0">
+                                                <input type="checkbox" id="allow" name="shiftEdit" value="false" />
+                                                <label for="allow" class="ml-2">Allow Timesheet Editing & Disable Attendance Alerts To Management</label>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--<div class="col-7 append-pos">
+                                        <label>Hourly Rate By Position</label>
+                                    </div>-->
+
+                                </div>
+
+                                <div class="tab-pane fade" id="log-tab" role="tabpanel" aria-labelledby="log-tab">
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label for="note">Log/Notes - <small>Visible To Only Managers And Supervisors</small></label>
+                                            <textarea id="note" name="note" class="form-control mt-2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                            <label for="uploadFiles">Documents</label>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <input type="file" id="uploadFiles">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="advance-tab" role="tabpanel" aria-labelledby="advance-tab">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-check pl-0">
+                                                <input type="checkbox" id="useTimezone" class="useTimezone " name="useCustomTimezone" value="false" />
+                                                <label for="useTimezone">Use Timezone</label>
+                                            </div>
+                                            <div class="form-group mt-2">
+
+                                                <select class="use-timezone seltimezone select2 form-control" style="width: 100%;" disabled="disabled" id="seltimezone" name="seltimezone" data-placeholder="Select timezone" >
+                                                    <option value="" disabled selected>Select timezone</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <label for="employeeID">Employee ID</label>
+                                            <input type="text" class="form-control mt-2" id="employeeID" name="employeeID"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-check pl-0">
+                                                <input type="checkbox" id="hide-scheduler" name="hide-scheduler" value="false">
+
+                                                <label for="hide-scheduler">Hide In The Scheduler</label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label class="row ml-1 mt-2 border-top pt-2" >Contract Type</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="radio icheck-primary mr-5">
+                                                <input type="radio" id="zero" name="contract" value="zero"/>
+                                                <label for="zero">Zero</label>
+                                            </div>
+                                            <div class="radio icheck-primary">
+                                                <input type="radio" id="fixed" name="contract" value="fixed"/>
+                                                <label for="fixed">Fixed</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 contractCondition" style="display: none;">
+                                            {#<label for="countDays" class="col-sm-2 control-label">Days/Week</label>#}
+                                            <input type="text" class="form-control" id="countDays" name="countDays" placeholder="Days/Week">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                    <button id="edit-employee" type="button" class="btn btn-custbl float-right btn-sm editemployee" data-dismiss="modal" style="display: none;">Save Empployee</button>
+                    <button id="add-employee" type="button" class="btn btn-custbl float-right btn-sm addemployee" data-dismiss="modal">Add Employee</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- jQuery -->
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- FastClick -->
+<script src="{{ asset('plugins/fastclick/fastclick.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('js/adminlte.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('js/demo.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Toastr -->
+<script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+<!-- SweetAlert2 -->
+<script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- date-range-picker -->
+<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+<!-- DataTables -->
+{#<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>#}
+{#<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>#}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+{#<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>#}
+{#<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>#}
+<script type="text/javascript"
+        src="https://cdn.datatables.net/v/dt/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sc-2.0.1/sl-1.3.1/datatables.min.js"></script>
+
+<!-- bootstrap color picker -->
+<script src="{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+
+
+<!-- mine script -->
+<script src="{{ asset('js/config.js') }}"></script>
+<script src="{{ asset('js/demoall.js') }}"></script>
+<script>
+    let assetDir = '{{ asset('img/') }}'
+</script>
+
+<!-- Google Map -->
+<script src="{{asset('js/googlemap.js')}}"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4ZzdNEwCqCeDHK4szjckTih4xIVKFczA&libraries=places&callback=initLocationIp" async defer >
+
+</script>
+
+<script src="{{ asset('js/pages/timesheets.js') }}"></script>
+
+</body>
+</html>

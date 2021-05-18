@@ -1,0 +1,64 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    system_default_timezone: 'GMT'
+    system_default_time_format: 'Y-m-d H:i'
+    roles:
+        account:    "account"
+        manager:    "manager"
+        supervisor: "supervisor"
+        employee:   "employee"
+
+    secret_key:  '%kernel.project_dir%/config/keys/rsa.private'
+    public_key:  '%kernel.project_dir%/config/keys/rsa.public'
+    client_side_base: '127.0.0.1:8000'
+    currencies: ["pond","dollar"]
+
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        public: true
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\EventListener\BillingListener:
+        tags:
+            - { name: doctrine.event_listener, event: prePersist, priority: 100, method: prePersist  }
+
+    App\Serializer\Normalizer\UserNormalizer:
+        tags:
+            - { name: 'serializer.normalizer', priority: 64 }
+
+    App\Serializer\Normalizer\TimeOffNormalizer:
+        tags:
+            - { name: 'serializer.normalizer', priority: 64 }
+
+    App\Serializer\Normalizer\ShiftHistoryNormalizer:
+        tags:
+            - { name: 'serializer.normalizer', priority: 64 }
+
+    App\Serializer\Normalizer\ShiftNormalizer:
+        tags:
+            - { name: 'serializer.normalizer', priority: 64 }
+
+
+    App\DataTransformer\BusinessOutputDataTransformer: ~

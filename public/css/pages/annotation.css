@@ -1,0 +1,292 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+p {
+    text-align: center;
+}
+
+#calendar {
+    /* margin:   50px 10px 0px 10px; */
+    font-size: 12px;
+    font-family: Source Sans Pro,Roboto,Helvetica Neue,Arial,sans-serif;
+}
+
+.fc-resource-area td {
+    cursor: pointer;
+}
+.fc-widget-content{
+    padding-bottom: 0.7vw !important;
+}
+.card-custBlue{
+    border-top: 3px solid #3F8CB3 !important;
+}
+.headAnnot{
+    background-color:#8c8f92;
+    color:white;
+}
+
+
+
+.color-palette {
+    height: 35px;
+    line-height: 35px;
+    text-align: right;
+    padding-right: .75rem;
+}
+
+.color-palette.disabled {
+    text-align: center;
+    padding-right: 0;
+    display: block;
+}
+
+.color-palette-set {
+    margin-bottom: 15px;
+}
+
+.color-palette span {
+    display: none;
+    font-size: 12px;
+}
+
+.color-palette:hover span {
+    display: block;
+}
+
+.color-palette.disabled span {
+    display: block;
+    text-align: left;
+    padding-left: .75rem;
+}
+
+.color-palette-box h4 {
+    position: absolute;
+    left: 1.25rem;
+    margin-top: .75rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    display: block;
+    z-index: 7;
+}
+
+
+.card-body.scheduler-conf{
+    min-height: 180px;
+}
+/*---annotation css---*/
+.annotation-content{
+    top: 0;
+    right: -300px;
+    background: #f3f3f3eb;;
+    bottom: 0;
+    max-width: 300px;
+    z-index: 999;
+    transition: right 1s;
+
+}
+.annotation-content .info-box{
+    background: #39859861;;
+}
+.annotation-content .info-box-content{
+    background: #0B7FC7;
+}
+.c-right-0{
+    right: 0 !important;
+}
+
+
+/* Portrait and Landscape */
+
+.optionViews .nav{
+    border-right: 0;
+}
+.optionViews .nav .nav-link{
+    color:black;
+}
+.optionViews .nav .nav-link.active{
+    color:#007bff;
+}
+
+/*---tooltip css---*/
+.tooltip{
+    opacity: 1;
+}
+.tooltip-inner{
+    background-color: #383838;
+    color:white;
+}
+.popper,
+.tooltip {
+    position: absolute;
+    z-index: 9999;
+    background: #383838;
+    color: black;
+    width: 150px;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+    padding: 10px;
+    text-align: center;
+}
+.style5 .tooltip {
+    background: #383838;
+    color: #FFFFFF;
+    max-width: 200px;
+    width: auto;
+    font-size: .8rem;
+    padding: .5em 1em;
+}
+.popper .popper__arrow,
+.tooltip .tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+}
+
+.tooltip .tooltip-arrow,
+.popper .popper__arrow {
+    border-color: #383838;
+}
+.style5 .tooltip .tooltip-arrow {
+    border-color: #383838;
+}
+.popper[x-placement^="top"],
+.tooltip[x-placement^="top"] {
+    margin-bottom: 5px;
+}
+.popper[x-placement^="top"] .popper__arrow,
+.tooltip[x-placement^="top"] .tooltip-arrow {
+    border-width: 5px 5px 0 5px;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    bottom: -5px;
+    left: calc(50% - 5px);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.popper[x-placement^="bottom"],
+.tooltip[x-placement^="bottom"] {
+    margin-top: 5px;
+}
+.tooltip[x-placement^="bottom"] .tooltip-arrow,
+.popper[x-placement^="bottom"] .popper__arrow {
+    border-width: 0 5px 5px 5px;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    top: -5px;
+    left: calc(50% - 5px);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.tooltip[x-placement^="right"],
+.popper[x-placement^="right"] {
+    margin-left: 5px;
+}
+.popper[x-placement^="right"] .popper__arrow,
+.tooltip[x-placement^="right"] .tooltip-arrow {
+    border-width: 5px 5px 5px 0;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    left: -5px;
+    top: calc(50% - 5px);
+    margin-left: 0;
+    margin-right: 0;
+}
+.popper[x-placement^="left"],
+.tooltip[x-placement^="left"] {
+    margin-right: 5px;
+}
+.popper[x-placement^="left"] .popper__arrow,
+.tooltip[x-placement^="left"] .tooltip-arrow {
+    border-width: 5px 0 5px 5px;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    right: -5px;
+    top: calc(50% - 5px);
+    margin-left: 0;
+    margin-right: 0;
+}
+.pic-span {
+    height: 20px;
+    width:20px;
+}
+.color-pos{
+    height: 20px;
+    width:20px;
+}
+
+/*budget//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*budget-table css*/
+/*budget-table css*/
+.budget{
+    margin: 0 auto 20px;
+    font-size: 12px;
+    font-family: Source Sans Pro,Roboto,Helvetica Neue,Arial,sans-serif;
+}
+div#budget .main-budget-table tr > td{
+    padding: 0;
+}
+
+div#budget .left-headers{
+    min-width: 175px;
+    margin-right: 7px;
+    padding: 0;
+}
+div#budget .left-headers tr .c-content{
+    padding: 1px 0;
+}
+
+div#budget .table-content{
+   padding: 0;
+   table-layout: fixed;
+}
+
+div#budget .table-content tr td{
+    padding: 2px;
+}
+.budget-cell{
+    width:100%;
+}
+
+.c-content{
+    width: 10%;
+}
+
+.label-bdg{
+    line-height:20px;}
+
+.assigned .input{
+    background: #dff3ff;
+}
+
+.info1{
+    font-size: 16px;
+}
+
+.c-font-10{
+    font-size: 10px !important;
+}
+.add-directly-shift{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.createTemp:hover{
+    cursor: pointer;
+}
+
+
+
+
+

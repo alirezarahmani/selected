@@ -1,0 +1,622 @@
+/*@font-face {
+    font-family: 'iransans';
+    src: url('fonts/eot/IRANSansWeb.eot'); !* IE9 Compat Modes *!
+    src: url('fonts/woff2/IRANSansWeb.woff2') format('woff2'), !* Super Modern Browsers *!
+    url('fonts/woff/IRANSansWeb.woff') format('woff'), !* Pretty Modern Browsers *!
+    url('fonts/ttf/IRANSansWeb.ttf')  format('truetype'); !* Safari, Android, iOS *!
+
+}*/
+
+/*body {
+    font-family:'iransans', Fallback, sans-serif;
+}*/
+body{
+    margin: 0;
+    font-family: Source Sans Pro,Roboto,Helvetica Neue,Arial,sans-serif;
+    font-size: .8125rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #eee;
+}
+
+a{
+    color:black;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+ul, li, ol {
+    list-style: none;
+}
+
+/* custom colors*/
+.navbar-custbl {
+    background-color: #3F8CB3 !important;
+}
+
+.card-custyel.card-outline{
+    border-top: 3px solid #3F8CB3 !important;;
+}
+.card-custbl.card-outline{
+    border-top: 3px solid #3F8CB3 !important;
+}
+.btn-custbl {
+    color: #ffffff !important;
+    background-image: linear-gradient(83deg, #3f8cb3 26%, #5c45ad) !important;
+    box-shadow: none !important;
+}
+.btn-outline-custbl{
+    color: #3F8CB3 !important;
+    border-color: #3F8CB3 !important;
+}
+.btn-outline-custbl:hover{
+    color: #ffffff !important;
+    border-color: #3F8CB3 !important;
+    background-color: #3F8CB3 !important;
+}
+.btn-noColor{
+    background-color: white;
+    border-color: #e7eced;
+    padding: 0;
+}
+/*employee.php*/
+.clr {
+    color:black;
+}
+.col-drag{
+    width: 30px;
+    padding: 0;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #ccc;
+    display: inline-block;
+}
+.dropdown-toggle::after {
+    margin-left: 0;
+}
+.icheck-primary{
+    display: inline-block;
+}
+#employees{
+
+    overflow-y: auto;
+    width: 100%;
+}
+
+.select2-selection__rendered {
+    padding-left: 10px !important;
+}
+
+/*position.php*/
+.circle-color{
+    background-color: darkgray;
+    height: 25px;
+    width: 25px;
+    border-radius: 15px;
+}
+
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+    width: auto;
+}
+/*map-size*/
+#map{
+    height: 140px;
+    border-radius: 5px;
+}
+/*multi select*/
+ul li.select2-selection__choice{
+    color: black !important;
+    margin-bottom: 5px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    padding-left: 0 !important;
+    padding-top: 10px !important;
+    padding-bottom: 25px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 5px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 20px !important;
+}
+/*shift template*/
+@media (max-width : 768px) {
+    .content-wrapper, .main-footer, .main-header {
+
+        margin-left: 200px;
+
+    }
+    .main-sidebar.sidebar-dark-primary.elevation-4{
+        max-width: 200px;
+    }
+
+}
+
+
+.dataTables_empty {
+    display: none;
+}
+
+/*all pages*/
+#employees_filter,#positions_filter,#schedules_filter,#jobsites_filter,#shiftTemplates_filter,#timeoffreq_filter,#shiftreq_filter{
+    margin-right: 15px;
+    margin-top: 10px;
+}
+.h-500{
+    height: 754px;
+}
+/*font size in scheduler */
+.c-fontsize{
+    font-size: 12px;
+}
+.titleTxt{
+    font-size:14px;
+}
+/*media-query*/
+@media only screen and (max-width: 768px) {
+    body {
+        font-size:73%;
+    }
+    .table{
+        font-size: 14px;
+    }
+    .c-fontsize{
+        font-size: 12px;
+    }
+
+    #frmsubmitSchedule,#frmsubmitJobsite,#frmsubmitShift,#frmsubmitReqoff{
+        padding-left: 20px!important;
+    }
+    .timeoffBtn{
+        margin-left: 0;
+    }
+    div.container.settings div{
+        display: block;
+    }
+    #navbarCollapse{
+        font-size: 11px;
+    }
+    .boxRequest{
+        display: none;
+    }
+
+
+
+}
+
+.searchBtn{
+    color:darkgrey;
+}
+/*accounts.css*/
+.alreadybus ul li{
+    list-style: none;
+    min-height: 70px;
+    display: flex;
+    align-items: stretch;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 50ms ease-in-out;
+}
+.piclogo{
+    background-image: url('../img/34x34-logo.jpg');
+    height: 34px;
+    width:34px;
+    border-radius:50% ;
+}
+.column ,.list-items{
+    display: flex;
+    padding: 10px 20px;
+}
+.alreadybus ul li .texts span{
+    display: block;
+    margin-left: 30px;
+}
+
+.timeoffBtn{
+
+    margin-top: -7px;
+    color:gray!important;
+}
+.timeoffBtn:hover{
+    color:black!important;
+}
+
+.c-item{
+    display: inline-block;
+   /* margin: 0 5px 5px 10px;*/
+    line-height: 30px;
+}
+.c-item-content{
+    display: inline-block;
+    margin: 5px 5px 0 5px;
+    line-height: 17px;
+}
+.tag{
+
+    font-weight: 400;
+    border-radius: 2px;
+
+    background: hsla(0,0%,100%,.2);
+}
+.c-item.c-pen{
+    cursor: pointer;
+    background: rgba(0,0,0,.25);
+    float: right;
+    margin: auto;
+    line-height: 30px;
+}
+.unpublish{
+    background-image: url('../img/not-publish-shift.png');
+
+}
+
+
+/* history shift modal */
+.shift-history-container .shift-history-item:before {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 100%;
+    background-color: #ccc;
+    position: absolute;
+    left: 6px;
+}
+.shift-history-container .shift-history-list{
+    margin-top: 15px;
+    list-style: none;
+    overflow-y: auto;
+    max-height: 260px;
+}
+.shift-history-container .shift-history-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    padding-bottom: 20px;
+}
+.shift-history-container .bullet {
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background: #999;
+    position: relative;
+    border-radius: 50%;
+    vertical-align: top;
+    -webkit-box-shadow: 0 0 0 4px #fff;
+    box-shadow: 0 0 0 4px #fff;
+}
+.shift-history-container .date-item .bullet{
+    background-color:#ccc;
+}
+.shift-history-container .bullet {
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background: #999;
+    position: relative;
+    border-radius: 50%;
+    vertical-align: top;
+    -webkit-box-shadow: 0 0 0 4px #fff;
+    box-shadow: 0 0 0 4px #fff;
+}
+.shift-history-container .content{
+    display: inline-block;
+}
+.shift-history-container .unpublished-item .bullet {
+    background-color: #a3303b;
+}
+.shift-history-container .headline{
+    color: #999;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.shift-history-container .shift-history-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    padding-bottom: 20px;
+}
+.shift-history-container .actor {
+    color: #555;
+    font-size: 14px;
+    text-transform: none;
+}
+.shift-history-container .detail {
+    color: #000;
+    font-size: 17px;
+    margin-top: -3px;
+    font-weight: 300;
+}
+.shift-history-container .published-item .bullet {
+    background-color: #51a33d;
+}
+.shift-history-container .created-item .bullet {
+    color: #fff;
+    left: -12px;
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background-color: #36c;
+}
+.shift-history-container .current-item .bullet {
+    color: #fff;
+    left: -12px;
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background-color: #36c;
+}
+/*table styling*/
+.dataTables_length,.dataTables_info{
+    padding: 10px;
+}
+.card-custom{
+    overflow: hidden;
+}
+.control-sidebar .control-sidebar-content .user-block:hover{
+    cursor: pointer;
+    color: black;
+    background-color: rgb(219,225,230);
+}
+.scheduled-container-circle{
+    border: 4px solid;
+    border-radius: 120px;
+    float: left;
+    height: 200px;
+    margin-right: 30px;
+    text-align: center;
+    width: 200px;
+    border-color: #9ef586;
+}
+.actual-container-circle{
+    border: 4px solid;
+    border-radius: 120px;
+    float: left;
+    height: 200px;
+    margin-right: 30px;
+    text-align: center;
+    width: 200px;
+    border-color: #bddffd;
+}
+
+.pic-span {
+    height: 20px;
+    width: 20px;
+}
+
+
+#map{
+    border-radius: 5px;
+    width: 100%;
+    height: 400px;
+    border:0
+}
+
+.contentStyle{
+    width: 100%; height: auto
+}
+
+.containerStyle {
+    width: 100%; height: 100%;
+}
+
+.rowStyle {
+    height: 120px; width: 100%
+}
+
+.redColor{
+    color: red
+}
+
+.textStyle_loc {
+    float: left; width: 90%
+}
+
+.boxSendLocation {
+    width: 100%; height: 400px;
+}
+
+.paddingH6 {
+    padding-top: 12px
+}
+
+.boxMapStyle {
+    width: 100%; height: 400px;
+}
+
+.w-nav {
+    background-color: #E9ECEF !important;
+}
+
+.asyncShift{
+    position: relative;
+}
+
+.asyncShift::after{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -1px;
+    left: -1px;
+    border-style: solid;
+    border-width: 22px 22px 0px 0px;
+    border-color: #b61a29 transparent transparent transparent;
+}
+
+.shiftUnAvilibility {
+    border: #C81146 4px solid !important;
+}
+
+.detailsShowViewPlan{
+    width: 200px; height: 100px; margin: auto;
+}
+
+.boxDetailAnnully{
+    width: 86%; height: 70px; margin-top: 14px !important;
+    background: #FFFADA; border: 1px solid yellow; border-radius: 3px
+}
+
+.boxDetailAnnully::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 41px;
+    left: 69%;
+    border-style: solid;
+    border-width: 0 12px 12px 12px;
+    border-color: transparent transparent #FFFADA transparent;
+}
+
+.showAccountMony {
+    font-size: 18px; color: green; line-height: 70px;
+}
+
+.showTitleAccountMony{
+    font-size: 15px; color: green
+}
+
+#picPlan{
+    height: 320px;
+    width: auto;
+    margin-left: 45px;
+    background-repeat: no-repeat;
+}
+
+.dt-buttons {
+    float: left;
+}
+#billing_filter {
+    float: right;
+    margin-top: 7px;
+    margin-right: 17px;
+}
+
+
+/* page search */
+.searchbox {
+    position: relative;
+} 
+
+.loading-search-box {
+    position: absolute; right: 10px; top: 10px;
+}
+
+.div-show-box {
+    max-height: 256px; overflow: hidden;
+}
+
+.div-show-box .ul-show-box{
+    max-height: 256px; overflow-y: scroll;
+}
+
+.div-show-box .ul-show-box .li-show-box{
+    height: 70px;
+}
+
+.div-show-box .ul-show-box .li-show-box:hover{
+    background-color: #d9d9d94f;
+    cursor: pointer;
+}
+
+.font-size-16{
+    font-size: 16px
+}
+
+.showAll-workplace {
+    max-height: 300px;
+    overflow: hidden;
+}
+.showAll-workplace-ul {
+    max-height: 300px;
+    overflow-y: scroll;
+    padding: 0;
+}
+
+.login-card-body {
+    padding: 3rem 6rem;
+}
+
+.loading-spinner{
+    display: none; width: 3rem; height: 3rem; position: absolute; left: 45%; margin-top: 10%; 
+} 
+
+/* width */
+::-webkit-scrollbar {
+width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
+
+.mapStyle {
+    width: 40%; height: 300px;
+}
+
+#setLoading {
+    width: 100%; 
+    height: 100%; 
+    background-color: #EEE; 
+    position: absolute; 
+    z-index:10000000000
+}
+
+#setLoading .box-loading{
+    width: 200px; 
+    height: 120px; 
+    background-color: white; 
+    margin-top: 20%; 
+    margin-left: 45%; 
+    text-align: center
+}
+
+#setLoading .box-loading .spinner-border{
+    width: 3rem; 
+    height: 3rem; 
+    margin-top: 18%
+}
+
+.set-style-for-all-colorPicer {
+    width:30px; height: 30px; cursor: pointer ;float: left
+}

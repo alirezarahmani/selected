@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Profile</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap4.css')}}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{asset('plugins/icheck-bootstrap/skins/flat/blue.css')}}" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+</head>
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    {{ include('blocks/sidebar_menu.html.twig') }}
+    <!-- /.navbar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container">
+                {# <div class="row mb-2">
+                     <div class="col-sm-6">
+                         <h1 class="m-0 text-dark"> Schedule</h1>
+                     </div><!-- /.col -->
+                     <div class="col-sm-6">
+                         <ol class="breadcrumb float-sm-right">
+                             <li class="breadcrumb-item"><a href="#">Home</a></li>
+                             <li class="breadcrumb-item active">Schedule</li>
+                         </ol>
+                     </div>
+                 </div>#}
+            </div>
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container">
+
+                        <div class="card card-custbl card-outline">
+
+                            <div class="card-header">
+                               <h5 class="card-title m-0">My Profile</h5>
+                                <div class="card-tools">
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-changePass" >Change Password</button>
+                                <button type="button" class="btn btn-custbl btn-sm saveInfo">Save</button>
+                                </div>
+                            </div>
+
+                            <div class="card-body p-0" >
+
+                                <div class="row mt-5">
+                                    <div class="col-4 p-5 text-center">
+                                        <input type="hidden" id="editIdInfo" name="editIdInfo">
+                                        <img class="profile-user-img img-responsive rounded mb-2" src="{{asset('img/workplaceImg.png')}}" id="set-profile" alt="User profile picture">
+
+
+                                        <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+                                        <label for="file" class="mt-2 btn btn-sm btn-app">
+                                            <i class="fa fa-edit"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <label for="firstname">First Name*</label>
+                                                <input type="text" class="form-control mt-2" id="firstname" name="firstname">
+                                            </div>
+                                            <div class="col-5">
+                                                <label for="emailAdd">Email Address*</label>
+                                                <input type="text" class="form-control mt-2" id="emailAdd" name="emailAdd">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-10">
+                                                <label for="timezone">Timezone</label>
+                                                <select  class="form-control seltimezone mt-2" id="timezone" name="timezone" >
+                                                    <option value="" selected>select...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-5">
+                                                <label for="lastname">Last Name*</label>
+                                                <input type="text" class="form-control mt-2" id="lastname" name="lastname">
+                                            </div>
+                                            <div class="col-5">
+                                                <label for="mobile">Mobile Number</label>
+                                                <input type="text" class="form-control mt-2" id="mobile" name="mobile">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-4 col-sm-10 pl-5">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="privacy" name="privacy" value="true">
+                                                <label class="custom-control-label" for="privacy">Privacy</label>
+                                                <div>When on, your coworkers will not be able to see your phone number or email.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 setPreferred" style="display: none;">
+                                        <div class="col-10">
+                                            <label for="preferHours">Preferred Hours -<small> OF HOURS PREFERRED PER WEEK</small></label>
+                                            <input type="text" class="form-control " id="preferHours" name="preferHours" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="card card-custbl card-outline">
+
+                        <div class="card-header">
+                            <h5 class="card-title m-0">Alert Preferences</h5>
+                            <div class="card-tools">
+                                <button id="alertsModal" style="display: none" type="button" class="btn btn-custbl btn-sm " data-toggle="modal" data-target="#modalActivePlan">Save</button>
+                                <button type="button" class="btn btn-custbl btn-sm saveAlerts" name="saveAlerts" style="display: none">Save</button>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-0" >
+
+                            <input type="hidden" id="editIdAlertemp" name="editIdAlertemp">
+
+                            <div class="row p-3 border-bottom">
+                                <div class="col-3">
+                                    <label>Time-Off Requests</label>
+                                </div>
+
+                                <div class="col-6"></div>
+                                <div class="col-3">
+
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="timeOff" class="mr-1 timeOff" value="email">Email
+                                    </label>
+                                    <label class="radio-inline ml-4">
+                                        <input type="radio" name="timeOff" class="mr-1 timeOff" value="mobile">Mobile
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="row p-3 border-bottom">
+                                <div class="col-3">
+                                    <label>Swap / Drop Requests</label>
+                                </div>
+                                <div class="col-6"></div>
+                                <div class="col-3">
+
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="swapDropShift" class="mr-1 swapDropShift" value="email">Email
+                                    </label>
+                                    <label class="radio-inline ml-4">
+                                        <input type="radio" name="swapDropShift" class="mr-1 swapDropShift" value="mobile">Mobile
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="row p-3 border-bottom">
+                                <div class="col-3">
+                                    <label>Schedule Updates</label>
+                                </div>
+                                <div class="col-6"></div>
+                                <div class="col-3">
+
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="scheduleUpdate" class="mr-1 scheduleUpdate" value="email">Email
+                                    </label>
+                                    <label class="radio-inline ml-4">
+                                        <input type="radio" name="scheduleUpdate" class="mr-1 scheduleUpdate" value="mobile">Mobile
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row p-3 border-bottom blockHideEmp">
+                                <div class="col-3">
+                                    <label>New Employee</label>
+                                </div>
+                                <div class="col-6"></div>
+                                <div class="col-3">
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="newEmployee" class="mr-1 newEmployee" value="email">Email
+                                    </label>
+                                    <label class="radio-inline ml-4">
+                                        <input type="radio" name="newEmployee" class="mr-1 newEmployee" value="mobile">Mobile
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row p-3 border-bottom blockHideEmp">
+                                <div class="col-3">
+                                    <label>Availability Change</label>
+                                </div>
+                                <div class="col-6"></div>
+                                <div class="col-3">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="availibilityChange" class="mr-1 availibilityChange" value="email">Email
+                                    </label>
+                                    <label class="radio-inline ml-4">
+                                        <input type="radio" name="availibilityChange" class="mr-1 availibilityChange" value="mobile">Mobile
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row p-3 border-bottom" id="remindersClock">
+                                <div class="col-3">
+                                    <label>Clock In/Out Reminders</label>
+                                </div>
+                                <div class="col-6"></div>
+                                <div class="col-3">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="clockReminder" class="mr-1 clockReminder" value="email">Email
+                                    </label>
+                                    <label class="radio-inline ml-4">
+                                        <input type="radio" name="clockReminder" class="mr-1 clockReminder" value="mobile">Mobile
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row p-3 border-bottom blockHideEmp blockHideSupvsr" id="alertOvertime">
+                                <div class="col-3">
+                                    <label>Overtime Alerts
+                                    </label>
+                                </div>
+                                <div class="col-6"></div>
+                                <div class="col-3">
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="overTimeAlert" class="mr-1 overTimeAlert" value="email">Email
+                                    </label>
+                                    <label class="radio-inline ml-4">
+                                        <input type="radio" name="overTimeAlert" class="mr-1 overTimeAlert" value="mobile">Mobile
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row p-3 border-bottom blockHideEmp blockHideSupvsr blockHideMnger">
+                                <div class="col-3">
+                                    <label>Payroll Reminders</label>
+                                </div>
+                                <div class="col-6"></div>
+                                <div class="col-3">
+
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="payrollReminder" class="mr-1 payrollReminder" value="email">Email
+                                    </label>
+                                    <label class="radio-inline ml-4">
+                                        <input type="radio" name="payrollReminder" class="mr-1 payrollReminder" value="mobile">Mobile
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="row p-3 border-bottom blockHideEmp blockHideSupvsr">
+                                <div class="col-3">
+                                    <label>Hire Alerts</label>
+                                </div>
+                                <div class="col-6"></div>
+                                <div class="col-3">
+
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="hireAlert" class="mr-1 hireAlert" value="email">Email
+                                    </label>
+                                    <label class="radio-inline ml-4">
+                                        <input type="radio" name="hireAlert" class="mr-1 hireAlert" value="mobile">Mobile
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="row p-3 border-bottom">
+                                <div class="col-5">
+                                    <label>Shift Reminders - <small>HOURS BEFORE MY SHIFT</small></label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="shiftRemiderClock" name="shiftRemiderClock" value="1">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Hours</span>
+                                        </div>
+                                    </div>
+                                    <div><small>Mobile reminders are not guaranteed. Delay in carrier deliver is possible.</small></div>
+
+                                </div>
+                                <div class="col-4"></div>
+                                <div class="col-3">
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="shiftReminder" class="mr-1 shiftReminder" value="email">Email
+                                    </label>
+                                    <label class="radio-inline ml-4">
+                                        <input type="radio" name="shiftReminder" class="mr-1 shiftReminder" value="mobile">Mobile
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+
+             </div>
+
+        </div>
+
+        <!-- right side bar-->
+        {{ include('blocks/breadcrumb.html.twig') }}
+
+    <!-- Main Footer -->
+    {{ include('blocks/footer.html.twig') }}
+
+</div>
+</div>
+
+<!-- modal add change password-->
+<div class="modal fade" id="modal-changePass">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Change Password</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-5">
+                <div class="row">
+
+                    <div class="col-10">
+                        <label for="currentPass">Current Password*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" class="form-control" id="currentPass" name="currentPass">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-10">
+                        <label for="newPass">New Password*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" class="form-control pass" id="first" name="first">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-10">
+                        <label for="confirmPass">Confirm Password*</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" class="form-control pass" id="second" name="second">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row p-2">
+                    <div class="icheck-primary ">
+                        <input type="checkbox" id="showPass" name="showPass"  value="false" >
+                        <label for="showPass">Show Password</label>
+
+                    </div>
+                </div>
+
+                <div class="row mt-2" id="pswd_info">
+
+                        <ul>
+
+                            <li>Length must be at least 8 characters</li>
+                            <li>Cannot contain an email address</li>
+                            <li>Confirmation must match</li>
+                        </ul>
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-custbl btn-sm float-right reset-password" disabled="disabled" data-dismiss="modal">Change Password</button>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- modal plan -->
+<div class="modal fade" id="modalActivePlan" tabindex="-1" role="dialog" aria-labelledby="modalActivePlanTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalActivePlanTitle">Purchase plan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 >Your account cannot use clock in\out reminders and overtime Alerts. To be able to use the features of this section.Please purchase a higher 
+            plan
+        </h5>
+      </div>
+      <div class="modal-footer">
+        <a href="{{path('Home',{'path':'pricing'}) }}" class="btn btn-success">Purchase plan</a>
+        <a href="#" class="btn btn-success saveAlerts" data-dismiss="modal">save items</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end modal plan -->
+
+
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('js/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('js/demo.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- date-range-picker -->
+<script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- DataTables -->
+<script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('plugins/datatables/dataTables.bootstrap4.js')}}"></script>
+<!-- bootstrap color picker -->
+<script src="{{asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
+<!-- icheck -->
+<script src="{{asset('plugins/icheck-bootstrap/icheck.js')}}"></script>
+
+
+<!-- mine script -->
+<script src="{{asset('js/config.js')}}"></script>
+<script src="{{asset('js/demoall.js')}}"></script>
+<script src="{{asset('js/pages/profile.js')}}"></script>
+
+
+</body>
+</html>

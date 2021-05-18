@@ -1,0 +1,68 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        login:
+            anonymous: true
+            stateless: true
+            pattern:    ^/api/login
+            json_login:
+                check_path: /api/login
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern: ^/api/
+            anonymous: true
+            stateless: true
+            provider: app_user_provider
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    role_hierarchy:
+        ROLE_SUPER_ADMIN:       ROLE_USER
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/api/test, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/usersendsms, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/users/confirm_email , roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/users/verification_confirm , roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/users/resend_code, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/users/get_mobile_code, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/pricing_questions/total_all_question, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/pricing_questions, roles: IS_AUTHENTICATED_ANONYMOUSLY,methods: [GET] }
+         - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/business_banks/submit_payment, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/reset, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/billings, roles: IS_AUTHENTICATED_ANONYMOUSLY ,methods: [GET] }
+         - { path: ^/api/business_banks/submit_payment, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/set-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/login_terminal, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/media, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/get_timezone, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

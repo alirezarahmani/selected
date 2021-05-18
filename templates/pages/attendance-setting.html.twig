@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Attendance</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap4.css')}}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{asset('plugins/icheck-bootstrap/skins/flat/blue.css')}}" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+</head>
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    {{ include('blocks/sidebar_menu.html.twig') }}
+    <!-- /.navbar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container">
+                {# <div class="row mb-2">
+                     <div class="col-sm-6">
+                         <h1 class="m-0 text-dark"> Schedule</h1>
+                     </div><!-- /.col -->
+                     <div class="col-sm-6">
+                         <ol class="breadcrumb float-sm-right">
+                             <li class="breadcrumb-item"><a href="#">Home</a></li>
+                             <li class="breadcrumb-item active">Schedule</li>
+                         </ol>
+                     </div>
+                 </div>#}
+            </div>
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container settings">
+
+                <div class="card card-custbl card-outline">
+
+                    <div class="card-header">
+                        <h5 class="card-title m-0">Attendance</h5>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-custbl btn-sm saveAttSetting float-right">Save</button>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0" >
+                        <input type="hidden" id="attendanceSettingId" name="attendanceSettingId">
+                        <div class="row p-4 border-bottom">
+                            <div class="col-10"> <h4>General</h4></div>
+                            <div class="col-5">
+                                <label>How Early Can Employee Clock In For A Shift :</label>
+                                <div class="input-group mt-2">
+                                    <input type="text" class="form-control" id="earlyClock" name="earlyClock">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Min</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row p-4 border-bottom">
+                            <div class="col-10">
+                                <div class="form-group">
+                                        <input type="checkbox" id="clockInmob" name="clockInmob">
+                                        <label class="pl-2" for="clockInmob">Clock In With Mobile App</label>
+                                        <p>You can apply GPS location restrictions to ensure employees are at work when they clock in with their phone.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-4 border-bottom">
+
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="clockIncom" name="clockIncom">
+                                        <label class="custom-control-label p-1" for="clockIncom">Clock In With Personal Computer</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-2" id="allowedIp" style="width: 100%; height: auto; display: none">
+                                <div class="row rowStyle">
+                                    <h5 class="ml-3 text-capitalize">
+                                        Ip Address confirmation for Personal Computer Log In
+                                    </h5>
+                                    <h5 class="ml-4 text-capitalize">
+                                        <ul>
+                                            <li>Please enter the Ip Address you want to white list. <strong>For Example <span class="text-danger">102.32.34.23</span></strong></li>
+                                            <li>Once you've Enabled the Ip Address, your employees will be able to clock in/ out without confirmation. </li>
+                                        </ul>
+                                    </h5>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-12 boxSendLocation">
+                                        <div class="card" >
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <input type="text" name="locationIp" class="form-control idLocations" onblur="checkInput(this)" placeholder="location Ip">
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-primary btn-block btn-lg" disabled="disabled" id="getIp">Get Location</button>
+                                            </div>
+                                        </div>
+                                        <div class="card" id="showLabel" style="display: none">
+                                            <form id="sendLocation" autocomplete="off">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <input type="text" name="label" class="form-control" onblur="chechLable(this)" id="label" placeholder="Jobsite">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="checkbox" id="userChanged" class="mr-2 mt-3 float-left">
+                                                        <h6 class="paddingH6"> Active location</h6>
+                                                    </div>
+
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="submit" class="btn btn-primary btn-block btn-lg" disabled="disabled" id="sendIp">Save Location</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-sm-12 boxMapStyle">
+                                        <div id="map"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-4 border-bottom">
+                            <div class="col-10"><h4>Payroll</h4></div>
+                            <div class="col-5">
+                                <label style="line-height: 30px">Pay Period Length</label>
+                                <select class="form-control " id="periodLen" name="periodLen">
+                                    <option value="7">Weekly</option>
+                                    <option value="14">Every Two Weeks</option>
+                                   {# <option value="15">Twice A Month</option>#}
+                                    <option value="30">Monthly</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row p-4 border-bottom ">
+                            <div class="col-10">
+                                <h4>Breaks</h4>
+                            </div>
+
+                            <div class="col-6 p-2">
+
+                                <div class="col-6 pl-0 mb-2"><label>Unpaid lunch breaks</label></div>
+                                <div class=" ">
+                                    <input type="checkbox" id="letRecord" name="letRecord"  value="false" />
+                                    <label class="ml-2" for="letRecord">LET EMPLOYEES RECORD UNPAID BREAKS</label>
+
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="deductBreaks" name="deductBreaks"  value="false" >
+                                    <label class="ml-2" for="deductBreaks">AUTOMATICALLY DEDUCT UNPAID BREAKS WHEN SCHEDULED</label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row p-4">
+                            <div class="col-10"><h4>Notifications</h4></div>
+                            <div class="col-11">
+                                <div class=" ">
+                                    <input type="checkbox" id="notifymanager" name="notifymanager"  value="false" />
+                                    <label class="ml-2" for="notifymanager">NOTIFY MANAGERS WHEN EMPLOYEES MISS CLOCK IN/OUT</label>
+
+                                </div>
+                                <div class=" d-block">
+                                    <input type="checkbox" id="notifyemp" name="notifyemp"  value="false" />
+                                    <label class="ml-2" for="notifyemp">NOTIFY EMPLOYEES WHEN THEY MISS CLOCK IN/OUT</label>
+
+                                </div>
+                                <!-- <div class=" ">
+                                     <input type="checkbox" id="notifymanagerOt" name="notifymanagerOt"  value="false" />
+                                     <label for="notifymanagerOt">NOTIFY MANAGERS WHEN EMPLOYEE'S WORKED HOURS AND REMAINING SCHEDULED HOURS WILL CAUSE OVERTIME</label>
+
+                                 </div>-->
+                                <div class=" ">
+                                    <!-- <input type="checkbox" id="notifymanagerOtClockin" name="notifymanagerOtClockin"  value="false" />-->
+                                    <label for="notifymanagerOtClockin">NOTIFY MANAGERS WHEN EMPLOYEES ARE
+
+                                        <input type="text" class="form-control d-inline-block" style="width: 40px;" id="hoursnotify" name="hoursnotify">
+                                        Minutes AWAY FROM WORKING OVERTIME AT CLOCK-IN</label>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                 </div>
+
+            </div>
+
+        </div>
+
+        <!-- modal seller plan -->
+
+        <div class="modal fade" id="modalSellerPlan" tabindex="-1" role="dialog" aria-labelledby="modalSellerPlanTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalSellerPlanTitle">Purchase plan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 >Your account cannot access this section. To be able to use the features of this section.Please purchase a higher
+                            plan
+                        </h5>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{path('Home',{'path':'pricing'}) }}" class="btn btn-success">Purchase plan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.modal seller plan -->
+
+
+        <!-- right side bar-->
+        {{ include('blocks/breadcrumb.html.twig') }}
+
+    <!-- Main Footer -->
+    {{ include('blocks/footer.html.twig') }}
+
+    </div>
+</div>
+
+
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('js/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('js/demo.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- date-range-picker -->
+<script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- DataTables -->
+<script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('plugins/datatables/dataTables.bootstrap4.js')}}"></script>
+<!-- bootstrap color picker -->
+<script src="{{asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
+<!-- icheck -->
+<script src="{{asset('plugins/icheck-bootstrap/icheck.js')}}"></script>
+
+<!-- Google Map -->
+<script src="{{asset('js/googlemap.js')}}"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4ZzdNEwCqCeDHK4szjckTih4xIVKFczA&libraries=places&callback=initLocationIp" async defer >
+
+</script>
+
+<!-- mine script -->
+<script src="{{asset('js/config.js')}}"></script>
+<script src="{{asset('js/demoall.js')}}"></script>
+<script src="{{asset('js/pages/allowedTerminal_ip.js')}}"></script>
+<script src="{{asset('js/pages/attendance-setting.js')}}"></script>
+
+
+
+
+</body>
+</html>

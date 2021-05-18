@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Scheduler</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    {# <link rel="stylesheet" href="{{ asset('css/AdminLteV4.css') }}">#}
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
+    <!-- annotation css -->
+
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/pages/clock-in.css') }}">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+
+</head>
+<body class="hold-transition layout-top-nav">
+<div class="container mt-5">
+
+    <div class="fullBoxError_loginClock">
+
+        <p class="validScheduleOrPosition">
+            <span class="fas fa-exclamation-triangle"></span>
+            <span>Schedule or workplac should not be empty</span>
+        </p>
+
+    </div>
+
+    <div class="showBoxTerminal">
+        <div class="row">
+            <div class="col">
+                <form id="formSubmited">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <select id="selectSchedule" class="form-control">
+                                <option selected>Select Schedule</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="selectJobSites" class="form-control">
+                                <option selected>Select workplace</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Public Terminal</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<script>
+    let imgAssetDir="{{ asset('img/picsmall.png') }}";
+    let imgAssetDirOpenshift="{{ asset('img/openshift128x128.png') }}";
+
+    console.log(imgAssetDir)
+</script>
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- FastClick -->
+<script src="{{ asset('plugins/fastclick/fastclick.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('js/adminlte.js') }}"></script>
+
+<!-- Select2 -->
+<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Toastr -->
+<script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- bootstrap color picker -->
+<script src="{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+
+<!-- public js -->
+<script src="{{ asset('js/config.js') }}"></script>
+{#<script src="{{asset('js/demoall.js')}}"></script>#}
+<script src="{{ asset('js/pages/terminal.js') }}"></script>
+
+</body>
+</html>

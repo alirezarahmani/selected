@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Scheduler</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    {# <link rel="stylesheet" href="{{ asset('css/AdminLteV4.css') }}">#}
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
+    <!-- annotation css -->
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pages/annotation.css') }}">
+    <!-- Full Calendar -->
+
+    <!-- colorPicker -->
+    <link rel="stylesheet" href="https://unpkg.com/huebee@2/dist/huebee.min.css">
+
+
+    <link href='{{ asset('plugins/FullCalendar/core/main.css') }}' rel='stylesheet'/>
+
+    <link href='{{ asset('plugins/FullCalendar/daygrid/main.css') }}' rel='stylesheet'/>
+    <link href='{{ asset('plugins/FullCalendar/timegrid/main.css') }}' rel='stylesheet'/>
+    <link href='{{ asset('plugins/FullCalendar/timeline/main.css') }}' rel='stylesheet'/>
+    <link href='{{ asset('plugins/FullCalendar/resource-timeline/main.css') }}' rel='stylesheet'/>
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+
+</head>
+
+<style>
+
+    .huebee__cursor {
+        width: 30px;
+        height: 30px;
+    }
+    .huebee__close-button {
+        background: red;
+    }
+
+    .huebee {
+        left: -120% !important;
+        top: 101% !important;
+    }
+
+    .spinnerTable {
+        width: 3rem; height: 3rem; position: absolute; top: 50%; left: 50%; z-index: 1001
+    }
+</style>
+
+<body class="hold-transition layout-top-nav">
+
+<div class="wrapper">
+    <div id="setLoading">
+        <div class="rounded box-loading">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar -->
+    {{ include('blocks/sidebar_menu.html.twig') }}
+    <!-- /.navbar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <div class="content ">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="mt-4">
+
+                            <div class="col-12">
+                                <div class="card card-outline collapsed-card" id="publishAndNotifyColor">
+                                    <div class="card-header">
+                                        <h5 class="card-title float-left"><small>Publish & Notify</small></h5>
+                                        <div class="float-left ml-4 mt-1">
+                                           <span class="text-danger" id="unpublishChanges" style="font-size:11px; display: none; font-weight: 900"></span>
+                                        </div>
+
+                                        <div class="card-tools">
+                                            <button id="toggleBtn" type="button" class="btn btn-tool" data-widget="collapse">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <!-- /.card-tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                        <div class="card-body" style="display: none;font-size: 12px;">
+                                            {# <form id="publish_notify"> #}
+                                                <div class="form-group row">
+                                                    <label class="pl-2 mb-2">Recipients</label>
+                                                    <div class="col-sm-12">
+                                                        <select class="select-who select2 text-capitalize" id="select-who" multiple="multiple" style="width: 100%; font-size: 14px">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- Date and time range -->
+                                                <div class="form-group row">
+                                                    <label class="pl-2 mt-2 mb-2">Date Range</label>
+                                                    <div class="col-sm-12">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                    <i class="far fa-calendar-alt"></i>
+                                                                    </span>
+                                                            </div>
+                                                            <input type="text" class="form-control float-right"
+                                                                    id="start-date-notify" name="start-date-notify"/>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-sm-12 mt-1">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                    <i class="far fa-calendar-alt"></i>
+                                                                    </span>
+                                                            </div>
+                                                            <input type="text" class="form-control float-right"
+                                                                    id="end-date-notify" name="end-date-notify">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <!-- check box -->
+                                                <input type="checkbox" style="margin-top: 2px" class="float-left mr-1" id="userChanged">
+                                                <label class="checkbox-inline">
+                                                    NOTIFY USERS WITH CHANGES
+                                                </label>
+                                                <!-- Add Message Box -->
+                                                <div class="form-group row">
+                                                    <lable class="mb-2 ml-2 font-weight-bold mt-3">Message</lable>
+                                                    <div class="col-sm-12">
+                                                        <textarea class="form-control" id="notify_msg"></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-1">
+
+                                                    <button type="button" class="btn btn-block btn-xs btn-outline-secondary" id="resend-notifications" style="display: none;">
+                                                            <small>Resend Notifications</small>
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-block btn-xs btn-outline-custbl" id="publish-shifts">
+                                                        <small>Publish Shifts</small>
+                                                    </button>
+                                                    <button type="button" class="btn btn-block btn-xs btn-outline-danger" id="unpublish-shifts">
+                                                        <small>Unpublish Shifts</small>
+                                                    </button>
+
+                                                </div>
+                                            {# </form> #}
+                                        </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+
+                            <div class="col-12">
+                                <div class="card card-gray card-outline">
+                                    <div class="card-header">
+                                        <h5 class="card-title"><small>View Options</small></h5>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-widget="collapse"><i
+                                                        class="fas fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <!-- /.card-tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body" style="font-size: 11px;">
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <label>Schedule</label>
+                                                <select class="form-control text-capitalize mt-2" id="schedule-ls" style="width: 100%; font-size: 14px">
+                                                    <option value="" disabled selected>Select Schedule</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <ul class="nav nav-tabs c-event-source" id="vert-tabs-opt" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="vert-tabs-employee-tab"
+                                                   data-toggle="pill" href="#vert-tabs-employee" role="tab"
+                                                   aria-controls="custom-tabs-two-home" aria-selected="true"
+                                                   data-resource="employee">Employees</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="vert-tabs-position-tab" data-toggle="pill"
+                                                   href="#vert-tabs-position" role="tab"
+                                                   aria-controls="custom-tabs-two-profile" aria-selected="false"
+                                                   data-resource="position">Positions</a>
+                                            </li>
+
+                                        </ul>
+
+                                        <div class="tab-content mt-2" id="vert-tabs-tabContent">
+                                            <div class="tab-pane fade active show" id="vert-tabs-employee"
+                                                 role="tabpanel" aria-labelledby="vert-tabs-employee-tab">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                               name="chbox" id="unschemp">
+                                                        <label class="custom-control-label cust-lable p-1"
+                                                            >Hide Unscheduled Employees</label>
+                                                    </div>
+                                                </div>
+                                                {#   <div class="form-group">
+                                                       <div class="custom-control custom-switch">
+                                                           <input type="checkbox" class="custom-control-input" name="chbox" id="showbudgetemp" value="false">
+                                                           <label class="custom-control-label cust-lable p-1" for="showbudgetemp">Show Budget Tools</label>
+                                                       </div>
+                                                   </div>#}
+                                            </div>
+
+                                            <div class="tab-pane fade" id="vert-tabs-position" role="tabpanel"
+                                                 aria-labelledby="vert-tabs-position-tab">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" name="chbox"
+                                                               class="custom-control-input" id="unschpos">
+                                                        <label class="custom-control-label cust-lable p-1">Hide Unscheduled Positions</label>
+                                                    </div>
+                                                </div>
+                                                {# <div class="form-group">
+                                                     <div class="custom-control custom-switch">
+                                                         <input type="checkbox" name="chbox" class="custom-control-input" id="showbudgetpos" value="false">
+                                                         <label class="custom-control-label cust-lable p-1" for="showbudgetpos">Show Budget Tools</label>
+                                                     </div>
+                                                 </div>#}
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" name="chbox"
+                                                               class="custom-control-input" id="showOthersh">
+                                                        <label class="custom-control-label cust-lable p-1">Show Shifts At Other
+                                                            Schedules</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" name="chbox"
+                                                       id="showbudgettable" value="false">
+                                                <label class="custom-control-label cust-lable p-1">Show Budget Tools</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-12 col-form-label">View Shift Colors By</label>
+                                            <div class="col-sm-12 mt-2">
+                                                <select class="form-control viewShift " style="width: 100%;">
+                                                    <option value="shift">Shift</option>
+                                                    <option value="position">Position</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+
+                            <div class="col-12">
+                                <div class="card card-gray card-outline">
+                                    <div class="card-header">
+                                        <h5 class="card-title"><small>Positions</small></h5>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-widget="collapse"><i
+                                                        class="fas fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <!-- /.card-tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body" style="font-size: 11px;">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- checkbox -->
+                                                <div class="form-group positions-ls-check">
+                                                    <div class="spinner-border" style="width: 3rem; height: 3rem; margin-left: 40%" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+
+                            <div class="col-12">
+                                <div class="card card-gray card-outline">
+                                    <div class="card-header">
+                                        <h5 class="card-title"><small>Job Sites</small></h5>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-widget="collapse"><i
+                                                        class="fas fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <!-- /.card-tools -->
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body" style="font-size: 11px;">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- checkbox -->
+                                                <div class="form-group jobs-ls-check">
+                                                    <a class="btn btn-primary btn-lg w-100 text-white" id="_btn_addJobSite" style="display: none">Add job sites</a>
+                                                    <div class="spinner-border" id="_jobSpinner" style="width: 3rem; height: 3rem; margin-left: 40%" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+
+                            </div>
+
+                    </div>
+                    <div class="col-lg-9">
+
+                        <div class="card card-custbl card-outline mt-4">
+
+                            <div class="card-header">
+                                <h5 class="card-title m-0">Scheduler</h5>
+                            </div>
+
+                            <div class="spinner-border spinnerTable" id="tableLoading" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+
+                            <div class="table-responsive card-custom position-relative">
+                                <!-- /.annotation-content -->
+                                <div class="position-absolute d-flex flex-column  justify-content-center annotation-content">
+                                    {#    <div class="info-box align-self-center">
+                                             <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+
+                                             <div class="info-box-content">
+                                                #}{# <span class="info-box-text">Messages</span>#}{#
+                                                 <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
+                                                 <span class="info-box-number">12 sep</span>
+                                             </div>
+
+                                         </div>#}
+
+                                    <div class="position-relative p-3 justify-content-center annotation-content">
+
+
+                                        {#   <div class="col-sm-12 mb-3">
+                                               <div class="position-relative p-3 " style="height: 80px;background-color: #39859861;border-radius: 0.25rem;">
+                                                   <div class="ribbon-wrapper">
+                                                       <div class="ribbon bg-primary" style="color: black;top: 16px;">
+                                                           <i class="far fa-calendar-alt"></i>12 Sep</span>
+                                                       </div>
+                                                   </div>
+
+                                                   <div>
+                                                   <span class="font-weight-bold d-block">title <button type="button" class="btn btn-sm d-inline"  id="detail-annot" data-toggle="modal" data-target="#modal-addAnnot" title="more info"> <i class="fas fa-arrow-circle-right" ></i></button></span>
+                                                 <span>  <small>.ribbon-wrapper.ribbon-lg .ribbon</small></span>
+                                                   </div>
+                                               </div>
+                                           </div>#}
+                                    </div>
+
+
+                                </div>
+                                <!-- /.annotation-content -->
+                                <div id='calendar'></div>
+                                <div id="budget" class="budget table-responsive px-1 h-300" style="display: none;">
+                                    <table class="main-budget-table table table-responsive">
+                                        <tr>
+                                            <td width="175px">
+                                                <table class="table table-head-fixed table-sm left-headers" >
+                                                    <tbody>
+                                                    <tr></tr>
+                                                    <tr>
+                                                        <td class="leftHeader font-weight-bold c-content"><label>Actual Sales</label></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="leftHeader font-weight-bold c-content"><label>Labor % Target</label></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="c-content"><label>Actual Labour %</label></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="c-content"><label>Percentage Difference</label>   </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="c-content"><label>Total Hours</label> </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="c-content"><label>Total Labor</label> </td>
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table></td>
+                                            <td >
+                                                <table class="table table-head-fixed table-sm table-content px-1" id="budget-table">
+                                                    <tbody>
+                                                    <tr scope="row" class="total">
+                                                        <td scope="col" class="c-content">
+                                                            <div class="input-group  row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">£</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group  row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">£</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">£</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group  row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">£</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group  row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">£</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">£</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">£</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr scope="row" class="labor">
+                                                        <td scope="col" class="c-content"  >
+                                                            <div class="input-group row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">%</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">%</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">%</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">%</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">%</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">%</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                        <td scope="col" class="c-content" >
+                                                            <div class="input-group row no-gutters">
+                                                                <div class="input-group-prepend col-2 p-0 m-0">
+                                                                    <span class="input-group-text p-0 c-font-10 w-100">%</span>
+                                                                </div>
+                                                                <input type="text" class="budget-cell col-10 pl-0 ml-0" disabled/>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr scope="row" class="percent-assign">
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                    </tr>
+                                                    <tr scope="row" class="percent-diff">
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+
+                                                    </tr>
+                                                    <tr scope="row" class="total-hour">
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+
+                                                    </tr>
+                                                    <tr scope="row" class="total-labor">
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+                                                        <td scope="col" class="c-content" ><input disabled type="text" class="budget-cell budge-single-input"></td>
+
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- right side bar-->
+    {{ include('blocks/breadcrumb.html.twig') }}
+    <!-- Main Footer -->
+    {{ include('blocks/footer.html.twig') }}
+
+</div>
+
+<!-- modal addEvents  -->
+<div class="modal fade c-fontsize" id="modal-addEvents">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="content-qualified ">
+                <div class="modal-header">
+                    <h6 class="modal-title titleTxt font-weight-bold"></h6>
+                    <button type="button" class="close specificClose" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="pt-2 pr-2" style="line-height: 30px">Assign To</label>
+                            <select class="form-control select-emp select2 w-100 pt-2" style="width: 100%" id="employeeList">
+                                <option value="/api/users/0">OpenShift</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-2"><label>Qualified</label></div>
+                    <div class="row qualified pb-3">
+
+                    </div>
+                    <div class="row border-top createTemp pt-3">
+                        <div class="border rounded ml-2 pl-2" style="width: 47%">
+                            <div class="c-item ">Create Custom Shift</div>
+                            <div class="c-item c-pen pr-1 pl-1"><i class="fas fa-pencil-alt"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content-addshift" style="display: none;">
+                <div class="modal-header">
+                    <a class="btn btn-link btn-sm backToShiftBtn" style="display: none;"><i
+                                class="fas fa-angle-left"></i></a>
+                    <h6 class="modal-title titleTxt font-weight-bold" style="flex: 2;font-size: 13px;"></h6>
+                    <a class="btn border btn-link btn-sm timeoffBtn"><small>Time Off</small></a>
+
+                    <button class="btn btn-outline-secondary btn-sm notifyBtn"
+                            style="display: none;margin-left: 115px;">Notify
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm historyBtn ml-1" style="display: none;">History
+                    </button>
+                    <button type="button" class="close specificClose" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="change-content">
+                        <input type="hidden" id="selectedDate" name="selectedDate">
+                        <input type="hidden" id="shiftEditID" name="shiftEditID">
+                        <input type="hidden" id="repeated" name="repeated" value="0">
+
+                        <div class=" row">
+                            <div class="col-12 forOpenShift mb-2">
+                                <label class="pt-2 pr-2" style="line-height: 30px">Assign To</label>
+                                <select class="form-control select-emp select2 pt-2" id="empList" style="width: 100%;">
+                                    <option value="/api/users/0">OpenShift</option>
+                                </select>
+                            </div>
+                            {# <div class="col-2 howmanyOS" style="display: none;">
+                                 <label class="pt-2 pr-2 pb-2" for="howmany">How Many</label>
+                                 <input type="text" class="form-control" id="howmany" name="howmany" value="1">
+                             </div>#}
+                        </div>
+                        <div class="row"><label class="pl-2 pt-2 mt-2 pb-2">Time *</label></div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <div class="input-group budget-celldate" id="timeStart" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" id="timeStartInput"
+                                               data-target="#timeStart"/>
+                                        <div class="input-group-append" data-target="#timeStart"
+                                             data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <div class="input-group budget-celldate" id="timeEnd" data-target-input="nearest">
+                                        <input type="text" class="form-control datetimepicker-input" id="timeEndInput"
+                                               data-target="#timeEnd"/>
+                                        <div class="input-group-append" data-target="#timeEnd"
+                                             data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mt-2">
+                                <label class="pt-2 pr-2" >Unpaid Break</label>
+                                <div class="input-group mt-2">
+                                    <input type="text" class="form-control" id="unpaidbreak" name="unpaidbreak" value="0">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Min</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-2">
+
+                                <label>Color</label>
+
+                                <div class="dropdown mt-2">
+                                    <button class="btn border rounded" type="button" id="changeColorForBG" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-fill-drip"></i>
+                                    </button>
+                                    <div class="dropdown-menu px-2" aria-labelledby="changeColorForBG" style="min-width: 21.75rem !important; margin-left: -138px !important">
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #D98880" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #F1948A" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #AF7AC5" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(179,136,255 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(140,158,255 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #7FB3D5" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #F7DC6F" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(132,255,255 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #7DCEA0" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(185,246,202 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(176,190,197 ,1);" onclick="setColors(event)"></span>
+
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #CD6155" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #EC7063" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #9B59B6" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(124,77,255 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(83,109,254 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #5499C7" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #F4D03F" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(24,255,255 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #52BE80" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(105,240,174 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(120,144,156 ,1);" onclick="setColors(event)"></span>
+
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #C0392B" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #E74C3C" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #7D3C98" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(101,31,255 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(61,90,254 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #2980B9" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #F1C40F" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(0,229,255 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #27AE60" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(0,230,118 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(84,110,122 ,1);" onclick="setColors(event)"></span>
+
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #A93226" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #B03A2E" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #6C3483" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(98,0,234 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(48,79,254 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #2471A3" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #D4AC0D" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(0,184,212 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: #229954" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(0,200,83 ,1);" onclick="setColors(event)"></span>
+                                        <span class="set-style-for-all-colorPicer" style="background-color: rgba(69,90,100 ,1);" onclick="setColors(event)"></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row">
+                            <div class="col-6 mt-3">
+                                <label class="pt-2 pr-2" style="line-height: 30px">Position</label>
+                                <select class="form-control pos-list select2 mt-2" id="positionList" style="width: 100%;">
+                                    <option value="">No Position</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label class="pt-2 pr-2" style="line-height: 30px">Job Site</label>
+                                <select class="form-control jobs-list select2 mt-2" id="jobsiteList" style="width: 100%;">
+                                    <option value="">No JobSite</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-12 mt-4">
+                                <label class="pt-2 pr-2">Shift Notes</label>
+                                <textarea class="form-control custommsg mt-2" id="note" name="note" rows="3"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="row p-2 mt-3">
+                            <div class="col-6">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="repeatShitf" name="repeatShitf" value="false">
+                                    <label>Repeat Shift</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="saveAstemp" name="saveAstemp" value="false">
+                                    <label>Save As Shift Template</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row repeated mt-2" style="display: none;">
+                            <div class="col-6">
+                                <label class="pt-2 pr-2" style="line-height: 28px">Repeat Every</label>
+                                <select class="form-control repeat-period select2 " id="repeatedPeriod"
+                                        style="width: 100%;">
+                                    <option value="0" disabled selected>select...</option>
+                                    <option value="7">Every 1 Week</option>
+                                    <option value="14">Every 2 Week</option>
+                                    <option value="21">Every 3 Week</option>
+                                    <option value="28">Every 4 Week</option>
+                                    <option value="35">Every 5 Week</option>
+                                    <option value="42">Every 6 Week</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="pt-2 pr-2">Ending</label>
+                                <div class="input-group budget-celldate mt-2" id="ending-shift" data-target-input="nearest">
+                                    <div class="input-group-prepend">
+                                         <span class="input-group-text">
+                                              <i class="far fa-calendar-alt"></i>
+                                         </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="end-repeated-date" name="end-repeated-date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3 eligibleEmp" style="display: none;">
+
+                            <button type="button" class="btn btn-link btn-sm eligibleEmpList ml-2">View currently
+                                eligible employees <i class="fas fa-angle-right"></i></button>
+                        </div>
+
+                    </div>
+
+                    <div class="content-eligible" style="display: none;">
+
+                        <div class="row p-3" style="line-height: 25px;">
+                            Select who can take this OpenShift™. Employees are eligible if they match the shift's
+                            position and do not have conflicting published shifts or approved time off.
+                        </div>
+                        <div class="row eligibles p-1" style="background-color: #f5f5f5;">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="mr-auto">
+                        <button id="delete-shift" type="button" class="btn btn-sm btn-danger delShift"
+                                data-dismiss="modal" style="display: none;">Delete
+                        </button>
+                        <button id="replace-shift" type="button" class="btn btn-sm btn-warning replaceShift"
+                                style="display: none;">Replace
+                        </button>
+                        <button id="view-req" data-reqid type="button"
+                                class="btn btn-sm btn-outline-secondary viewRequest" data-dismiss="modal"
+                                style="display: none;">View Request
+                        </button>
+
+                    </div>
+                    <div>
+                        <button id="save-shift-unpublish" type="button" class="btn btn-sm btn-secondary shunpublish" data-dismiss="modal" style="display: none;" >Save & UnPublish</button>
+                        <button id="add-shift-publish" type="button" class="btn btn-sm btn-custbl addshpublish" data-dismiss="modal" >Save & Publish</button>
+                        <button id="add-shift" type="button" class="btn btn-sm btn-custbl addshift" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-timeoff" style="display: none;">
+                <div class="modal-header">
+                    <h6 class="modal-title font-weight-bold" style="flex: 2;font-size: 13px;">Add Request Time Off</h6>
+                    <button type="button" class="close specificClose" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label class="pt-2 pr-2" style="line-height: 30px">WHO</label>
+                            <select class="select-emp select2" multiple="multiple" id="selemptimeoff"
+                                    name="selemptimeoff"
+                                    style="width: 100%;">
+                                <option>All/Everyone</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mt-2">
+                            <label class="pt-2 pr-2">Time Off Type*</label>
+                            <select class="form-control type-off mt-2" id="type-off" name="type-off">
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="allDay" name="allDay">
+                                <label> All Day </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mt-3">
+                            <!-- Date range -->
+                            <div class="form-group">
+                                <label class="pt-2 pr-2">Start Date*</label>
+                                <div class="input-group budget-celldate mt-2" id="start-date-timeoff" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#start-date-timeoff"/>
+                                    <div class="input-group-append" data-target="#start-date-timeoff" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-6 date-range mt-3" style="display: none;">
+                            <!-- Date range -->
+                            <div class="form-group">
+                                <label class="pt-2 pr-2">End Date*</label>
+
+                                <div class="input-group budget-celldate mt-2" id="end-date-timeoff" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#end-date-timeoff"/>
+                                    <div class="input-group-append" data-target="#end-date-timeoff" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row time-range mt-2">
+                        <div class="col-6">
+
+                            <!-- time Picker -->
+
+                            <div class="form-group">
+                                <label class="pt-2 pr-2">Starting*</label>
+                                <div class="input-group budget-celldate mt-2" id="timeStartoff" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#timeStartoff"/>
+                                    <div class="input-group-append" data-target="#timeStartoff" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.form group -->
+                        </div>
+
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="pt-2 pr-2">Ending*</label>
+                                <div class="input-group budget-celldate mt-2" id="timeEndoff" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#timeEndoff"/>
+                                    <div class="input-group-append" data-target="#timeEndoff" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row paid mb-3" style="display: none;">
+                        <div class="col-6 mt-2">
+                            <label class="pt-2 pr-2">Paid Hours</label>
+                            <input type="text" id="paid-hour" name="paid-hour" class="form-control mt-2">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <label class="pt-2 pr-2">Message</label>
+                            <textarea id="message" class="form-control mt-2" name="message"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-custbl btn-sm float-right sendTimeOffReq" data-dismiss="modal">Send Request</button>
+                </div>
+            </div>
+            <div class="content-history" style="display: none;">
+                <div class="modal-header">
+                    <h6 class="modal-title titleTxt font-weight-bold" style="flex: 2;font-size: 13px;"></h6>
+                    <button class="btn btn-outline-secondary btn-sm backBtn" ><small>Back</small></button>
+                    <button type="button" class="close specificClose" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="timeline timelineShift">
+
+                    </ul>
+                </div>
+            </div>
+            <div class="content-replace" style="display: none;">
+                <div class="modal-header">
+                    <h6 class="modal-title font-weight-bold" style="flex: 2;font-size: 13px;">Find Replacement</h6>
+                    <button type="button" class="close specificClose" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pl-5 pr-5">
+                    <div class="row">
+                        <div class="col-1 mr-4">
+                            <img class="rounded-circle" src="{{ asset('img/pic4.png') }}" style="width: 50px;height: 50px;margin: 10px;">
+                        </div>
+                        <div class="col-8 p-2">
+                            <div class="info1 font-weight-bold"></div>
+                            <div class="info2"></div>
+                        </div>
+                    </div>
+                    <div class="row p-3">Choose who can take &nbsp;<span class="fname"></span> &nbsp;’s shift.<br>
+                            <span class="fname"></span> is responsible to work this shift until someone accepts this request.</div>
+                    <div class="bg-gray-light border p-3">
+                        <div class="font-weight-bold">Potential Takers</div>
+                        <div class="row eligReplace">
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <label class="pt-2 pr-2 pb-2">Message</label>
+                            <textarea class="form-control" id="replace-note" name="replace-note" rows="3" ></textarea>
+                        </div>
+                    </div>
+                    <input type="hidden" id="strIdShift" name="strIdShift">
+                </div>
+                <div class="modal-footer">
+                    <button id="offer-shift" type="button" class="btn btn-sm btn-custbl" data-dismiss="modal" >Offer Shift</button>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- update repeated shift -->
+<div class="modal fade show" id="modal-updateRepeated" aria-modal="true" style="padding-right: 17px; display: block;display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold">Save Shift</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="shiftIdRepeated" name="shiftIdRepeated">
+                <div style="font-size: 12px;line-height: 30px;">You updated a repeating shift. Do you want to update all instances or just this one?<br>
+                    Updating all will update shifts in this series set beyond today’s date</div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelUpdate" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm btn-custbl applyToAll" data-dismiss="modal">Apply To All</button>
+                <button type="button" class="btn btn-sm btn-custbl applyToOne" data-dismiss="modal">Apply To One</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- delete repeated shift -->
+<div class="modal fade show" id="modal-deleteRepeated" aria-modal="true" style="padding-right: 17px; display: block;display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="content-delete">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold">Delete Shift on Tue, Oct 1st</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="shiftIdRepeateddel" name="shiftIdRepeateddel">
+                    <div style="font-size: 12px;line-height: 30px;">You are deleting a recurring shift. Do you want to delete all future shifts or just this one?<br>
+                        Deleting all will remove shifts in this series set beyond this date.</div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-sm btn-danger deleteAll" data-dismiss="modal">Delete All</button>
+                    <button type="button" class="btn btn-sm btn-danger deleteOne" data-dismiss="modal">Delete One</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-delete-history" style="display: none;">
+            <div class="modal-header">
+                <h5 class="modal-title titleDelete font-weight-bold">Delete Shift on Tue, Oct 1st</h5>
+                <a class="btn btn-link btn-sm backDelBtn"><small>Back</small></a>
+                <button type="button" class="close specificClose" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>hi history</div>
+
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- delete shift -->
+<div class="modal fade show" id="modal-deleteShift" aria-modal="true" style="padding-right: 17px; display: block;display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="content-delete">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold titleforDeletedShift" style="flex: 2;">Delete Shift on Tue, Oct 1st</h5>
+                    <a class="btn btn-link btn-sm backtoBtn" style="display: none;" ><small>Back</small></a>
+                    <button class="btn btn-outline-secondary btn-sm historyToBtn ml-1">History</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="content-history-delete" style="display: none;">
+                        <ul class="timelineDelete timeline">
+
+                        </ul>
+                    </div>
+                    <div class="content-no-history">
+                        <input type="hidden" id="shiftIdSingle" name="shiftIdSingle">
+                        <div style="font-size: 12px;line-height: 30px;">Are you sure you want to delete this shift? This cannot be undone.</div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="final-delete-shift" type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Yes</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="content-delete-history" style="display: none;">
+            <div class="modal-header">
+                <h5 class="modal-title titleDelete font-weight-bold">Delete Shift on Tue, Oct 1st</h5>
+                <a class="btn btn-link btn-sm backDelBtn"><small>Back</small></a>
+                <button type="button" class="close specificClose" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>hi history</div>
+
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- add annotation modal -->
+<div class="modal fade c-fontsize" id="modal-addAnnot">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title font-weight-bold"><span class="changeStat"></span> Annotation</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+            <div class="modal-body p-4">
+                <input type="hidden" id="annotEditId" name="annotEditId">
+                <div class="row">
+                    <div class="col-5">
+                        <!-- Date range -->
+                        <div class="form-group">
+                            <label>Start Date*</label>
+
+                            <div class="input-group mt-2">
+                                <div class="input-group-prepend">
+                                         <span class="input-group-text">
+                                              <i class="far fa-calendar-alt"></i>
+                                         </span>
+                                </div>
+                                <input type="text" class="form-control float-right" id="start-date-annot" name="start-date-annot"/>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-5">
+                        <div class="form-group">
+                            <label>End Date*</label>
+
+                            <div class="input-group mt-2">
+                                <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                </div>
+                                <input type="text" class="form-control float-right" id="end-date-annot" name="end-date-annot">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <label>Color</label>
+
+                        <div class="dropdown mt-2">
+                            <button class="btn border rounded" type="button" id="changeColorForBG2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-fill-drip"></i>
+                            </button>
+                            <div class="dropdown-menu px-2" aria-labelledby="changeColorForBG2" style="min-width: 21.75rem !important; margin-left: -260px !important">
+                                <span class="set-style-for-all-colorPicer" style="background-color: #D98880" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #F1948A" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #AF7AC5" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(179,136,255 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(140,158,255 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #7FB3D5" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #F7DC6F" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(132,255,255 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #7DCEA0" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(185,246,202 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(176,190,197 ,1);" onclick="setColors(event)"></span>
+
+                                <span class="set-style-for-all-colorPicer" style="background-color: #CD6155" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #EC7063" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #9B59B6" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(124,77,255 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(83,109,254 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #5499C7" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #F4D03F" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(24,255,255 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #52BE80" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(105,240,174 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(120,144,156 ,1);" onclick="setColors(event)"></span>
+
+                                <span class="set-style-for-all-colorPicer" style="background-color: #C0392B" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #E74C3C" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #7D3C98" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(101,31,255 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(61,90,254 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #2980B9" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #F1C40F" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(0,229,255 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #27AE60" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(0,230,118 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(84,110,122 ,1);" onclick="setColors(event)"></span>
+
+                                <span class="set-style-for-all-colorPicer" style="background-color: #A93226" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #B03A2E" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #6C3483" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(98,0,234 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(48,79,254 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #2471A3" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #D4AC0D" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(0,184,212 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: #229954" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(0,200,83 ,1);" onclick="setColors(event)"></span>
+                                <span class="set-style-for-all-colorPicer" style="background-color: rgba(69,90,100 ,1);" onclick="setColors(event)"></span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-12 mt-2">
+                        <label>Schedules</label>
+                        <select class="select-schedule-annot form-control mt-2" id="schedule-annot"
+                                style="width: 100%;">
+                            <option value="" disabled selected>select...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 mt-2">
+                        <label>Title</label>
+                        <input type="text" id="title" class="form-control mt-2" name="title"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <label class="pt-2 pr-2 pb-2">Message</label>
+                        <textarea id="message_annot" class="form-control mt-2" name="message_annot"></textarea>
+
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="icheck-primary mb-1">
+                            <input type="checkbox" id="busClose" name="annotType" class="annotType" value="closed">
+                            <label>Business Closed</label>
+
+                        </div>
+                        <div class="icheck-primary mb-1">
+                            <input type="checkbox" id="allowTimeoff" name="annotType" class="annotType" value="no_time_off">
+                            <label>Don't Allow Time Off</label>
+
+                        </div>
+                        <div class="icheck-primary mb-1">
+                            <input type="checkbox" id="announcement" name="annotType" class="annotType" value="announcement">
+                            <label>Announcement</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="mr-auto">
+                    <button type="button" class="btn btn-danger btn-sm deleteAnnot" style="display: none;">Delete</button>
+                    <button type="button" class="btn btn-default btn-sm cancelDel" style="display: none;">Cancel</button>
+                    <button type="button" class="btn btn-danger btn-sm finaldeleteAnnot" data-dismiss="modal" style="display: none;">Yes,Delete</button>
+                </div>
+                <button type="button" class="btn btn-custbl btn-sm saveAnnot" data-dismiss="modal">Save</button>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+</div>
+<!-- modal add employee -->
+<div class="modal fade" id="modal-addemp">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold">Add Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" id="frmsubmitEmployee" class="default-form form-horizontal box">
+                <div class="modal-body">
+                    <input type="hidden" name="editIdemp" id="editIdemp">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="nav flex-column nav-tabs" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="vert-detail-tab" data-toggle="pill" href="#detail-tab" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Employee Details</a>
+                                <a class="nav-link" id="vert-schedule-tab" data-toggle="pill" href="#schedule-tab" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">Schedules</a>
+                                <a class="nav-link blockHideSupvsr" id="vert-payroll-tab" data-toggle="pill" href="#payroll-tab" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">Payroll/Wage</a>
+                                <a class="nav-link" id="vert-note-tab" data-toggle="pill" href="#log-tab" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Log/Notes</a>
+                                <a class="nav-link" id="vert-advance-tab" data-toggle="pill" href="#advance-tab" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Advanced Details</a>
+
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="tab-content" id="vert-tabs-tab">
+                                <div class="tab-pane fade show active" id="detail-tab" role="tabpanel" aria-labelledby="detail-tab">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label>First Name</label>
+                                                <input type="text" class="form-control " id="firstname" name="firstname">
+                                                <label>Email</label>
+                                                <input type="email" class="form-control" disabled id="email" name="email">
+                                            </div>
+                                            <div class="col-4">
+                                                <label>Last Name</label>
+                                                <input type="text" class="form-control " id="lastname" name="lastname">
+                                                <label>Mobile Number</label>
+                                                <input type="text" class="form-control " id="mobile-num" name="mobile-num" >
+                                            </div>
+                                            <div class="col-3">
+                                                <img src="{{asset('img/img133.jpg')}}" alt="avatar" class="img-fluid mt-2" id="picurl" name="picurl"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row roleListEmpModal">
+                                            <div class="col-4">
+                                                <label>Role</label>
+                                                <select class="form-control role-list" id="roleList" style="width: 100%;">
+                                                    <option value="" disabled selected>select...</option>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-4">
+                                            <div class="form-group">
+                                                <label>What Position(s) does this person work?</label>
+                                                <select class="select2 pos-list" multiple="multiple" data-placeholder="Select..." name="posList[]" id="posList"
+                                                        style="width: 100%;">
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="schedule-tab" role="tabpanel" aria-labelledby="schedule-tab">
+
+                                    <div class="row">
+                                        <div class="form-group col-10">
+                                            <label>Schedules</label>
+                                            <select class="select2 sch-list" id="schList" name="schList[]" multiple="multiple" data-placeholder="Select Schedule to Add"
+                                                    style="width: 100%;">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="payroll-tab" role="tabpanel" aria-labelledby="payroll-tab">
+                                    <div class="row">
+                                        <div class="col-5 ">
+                                            <label>Base Hourly Rate</label>
+                                            <div class="input-group">
+                                         <span class="input-group-append">
+                                             <button type="button" class="currencySymbol"></button>
+                                         </span>
+                                                <input type="text" id="base-rate" name="base-rate" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <label>Base Hourly Rate Overtime</label>
+                                            <div class="input-group">
+                                                <span class="input-group-append">
+                                                    <button type="button" class="currencySymbols"></button>
+                                                </span>
+                                                <input type="text" class="form-control" value="0" id="overtimeRate" name="overtimeRate"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-5 mt-2">
+                                            <label>Max Hours/Week</label>
+                                            <input type="text" class="form-control" value="0" id="max-hour" name="max-hour"/>
+                                        </div>
+                                        <div class="col-10 mt-3">
+                                            <div class="icheck-primary ">
+                                                <input type="checkbox" id="exempt" name="exempt"  value="false" >
+                                                <label>Employee is exempt</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-11">
+                                            <div class="icheck-primary ">
+
+                                                <input type="checkbox" id="allow" name="shiftEdit" value="false" />
+                                                <label>Allow Timesheet Editing & Disable Attendance Alerts To Management</label>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--<div class="col-7 append-pos">
+                                        <label>Hourly Rate By Position</label>
+                                    </div>-->
+
+                                </div>
+
+                                <div class="tab-pane fade" id="log-tab" role="tabpanel" aria-labelledby="log-tab">
+
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <label>Log/Notes - <small>Visible To Only Managers And Supervisors</small></label>
+                                            <textarea id="note" name="note" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="advance-tab" role="tabpanel" aria-labelledby="advance-tab">
+                                    <div class="row">
+
+
+                                        <div class="col-5 ">
+                                            <label>Employee ID</label>
+                                            <input type="text" class="form-control" id="employeeID" name="employeeID"/>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="icheck-primary ">
+                                                <input type="checkbox" id="useTimezone" class="useTimezone " name="useCustomTimezone" value="false" />
+                                                <label>Use Timezone</label>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="use-timezone seltimezone select2 form-control" style="width: 100%;" disabled="disabled" id="seltimezone" name="seltimezone" data-placeholder="Select timezone" >
+                                                    <option value="" disabled selected>Select timezone</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-5 mt-2">
+                                            <div class="icheck-primary ">
+                                                <input type="checkbox" id="hide-scheduler" name="hide-scheduler" value="false">
+                                                <label>Hide In The Scheduler</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label class="row ml-1 mt-2 border-top pt-2" >Contract Type</label>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="radio icheck-primary mr-5">
+                                                <input type="radio" id="zero" name="contract" value="zero"/>
+                                                <label>Zero</label>
+                                            </div>
+                                            <div class="radio icheck-primary">
+                                                <input type="radio" id="fixed" name="contract" value="fixed"/>
+                                                <label>Fixed</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 contractCondition" style="display: none;">
+                                            {#<label for="countDays" class="col-sm-2 control-label">Days/Week</label>#}
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="countDays" name="countDays" placeholder="Days/Week">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                    <button id="edit-employee" type="button" class="btn btn-custbl float-right btn-sm editemployee" data-dismiss="modal">Save Employee</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script>
+    let imgAssetDir="{{ asset('img/picsmall.png') }}";
+    let imgAssetDirOpenshift="{{ asset('img/openshift128x128.png') }}";
+
+    console.log(imgAssetDir)
+</script>
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- FastClick -->
+<script src="{{ asset('plugins/fastclick/fastclick.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('js/adminlte.js') }}"></script>
+
+<!-- Select2 -->
+<script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- Toastr -->
+<script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<!-- bootstrap color picker -->
+<script src="{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+<!-- date-range-picker -->
+<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ asset('js/demo.js') }}"></script>
+<script src="{{ asset('js/config.js') }}"></script>
+<script src="{{ asset('js/demoall.js') }}"></script>
+<!-- Full Calendar -->
+<script src='{{ asset('plugins/FullCalendar/core/main.js') }}'></script>
+<script src='{{ asset('plugins/FullCalendar/interaction/main.js') }}'></script>
+<script src='{{ asset('plugins/FullCalendar/daygrid/main.js') }}'></script>
+<script src='{{ asset('plugins/FullCalendar/timegrid/main.js') }}'></script>
+<script src='{{ asset('plugins/FullCalendar/timeline/main.js') }}'></script>
+<script src='{{ asset('plugins/FullCalendar/resource-common/main.js') }}'></script>
+<script src='{{ asset('plugins/FullCalendar/resource-timeline/main.js') }}'></script>
+<script src='{{ asset('plugins/tooltip/popper.min.js') }}'></script>
+<script src='{{ asset('plugins/tooltip/tooltip.min.js') }}'></script>
+
+<script src="https://unpkg.com/huebee@2/dist/huebee.pkgd.min.js"></script>
+
+<script src="{{ asset('js/pages/scheduler.js') }}"></script>
+<script src="{{ asset('js/pages/scheduler-index.js') }}"></script>
+</body>
+
+</html>

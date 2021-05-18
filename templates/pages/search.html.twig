@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Workplan | Search</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+
+</head>
+<body class="hold-transition login-page">
+<div class="login-box" style="width: 600px;">
+    <div class="login-logo mb-0">
+        <img src="{{asset('img/selected-time-logo.png')}}" width="200px" height="100px">
+    </div>
+    <!-- /.login-logo -->
+    <div class="card" >
+
+        <div class="row p-4">
+            <div class="col-4">
+                <a href="{{path('Home',{path:'accounts'})}}"><i class="fas fa-arrow-left fa-xs mr-1"></i>Back</a>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <a class="float-right logouting" href="{{path('Home',{'path':'login'})}}"><i class="fas fa-power-off fa-xs mr-1"></i>Logout</a>
+            </div>
+        </div>
+        <div class="card-body login-card-body " style="padding: 3rem 6rem;">
+            <h3 class="text-center">Find Your Workplace</h3>
+
+            <p class="login-box-msg"><small>Post the work schedule, share your availability, chat with  <br>
+                    coworkers, or create your free account.
+                </small>
+            </p>
+
+            <p class="login-box-msg">Start searching by Workplace Address</p>
+
+            <div class="searchbox">
+                <div class="spinner-border spinner-border-sm loading-search-box" id="loading-box" role="status" style="display: none;">
+                    <span class="sr-only">Loading...</span>
+                </div>
+
+                <div class="row">
+                    <label for="">WorkPlace Address</label>
+                    <div class="input-group mb-3 mt-2">
+                        <input type="text" class="form-control placeinputs search1" id="pac-input" name= "WorkplceAddress" placeholder="Enter a location">
+                    </div>
+                </div>
+
+                <div id="map"></div>
+                <input type="hidden" name="latitude" id="latitude">
+                <input type="hidden" name="langtitude" id="langtitude">
+            </div>
+
+            <div class="row rounded-bottom border-top-0 border div-show-box">
+                <ul class="h-100 w-100 p-0 m-0 ul-show-box" id="showWorkplace"></ul>
+            </div>
+
+            <div class="row mt-2">
+
+                <button type="button" id="createBusiness1" class="btn btn-custbl btn-block mt-3" disabled="disabled">Next</button>
+                <button class="btn btn-custbl btn-block" id="imgLoading" type="button" disabled style="display: none">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+            </div>
+
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+<!--My Script-->
+<script src="{{asset('js/config.js')}}"></script>
+<script src="{{asset('js/pages/search.js')}}"></script>
+<!-- Google Map -->
+<script src="{{asset('js/googlemap.js')}}"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4ZzdNEwCqCeDHK4szjckTih4xIVKFczA&libraries=places&callback=initAutocomplete" async defer >
+</script>
+<script src="{{asset('js/pages/auth.js')}}"></script>
+
+</body>
+</html>
+

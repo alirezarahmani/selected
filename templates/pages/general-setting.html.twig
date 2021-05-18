@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Setting</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap4.css')}}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="{{asset('plugins/icheck-bootstrap/skins/flat/blue.css')}}" rel="stylesheet">
+    <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon" type="image/x-icon">
+    <link href="{{ asset('img/webclip.png') }}" rel="apple-touch-icon">
+    <style>
+
+        #map{
+            border-radius: 5px;
+            width: 100%;
+            height: 200px;
+            border:0;
+        }
+        #pac-container {
+            padding-bottom: 12px;
+        }
+        #pac-input {
+            background-color: #fff;
+            font-weight: 300;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+        }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+        #accommodation_address {
+            width: 20%;
+            position: absolute;
+            left: 10%;
+            top: 10%;
+            background-color: white;
+            border: 1px solid gray;
+            z-index: 100;
+        }
+        .pac-container {
+            z-index: 10000 !important;
+        }
+    </style>
+</head>
+<body class="layout-top-nav">
+
+<div class="wrapper">
+
+    <!-- Navbar -->
+    {{ include('blocks/sidebar_menu.html.twig') }}
+    <!-- /.navbar -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container">
+                <div class="row">
+
+                <div class="card card-custbl card-outline mt-4">
+
+                    <div class="card-header">
+                        <h5 class="card-title m-0">App Setting</h5>
+                        <div class="card-tools">
+                            <button id="save-busInfo" type="button" class="btn btn-custbl btn-sm float-right">Save</button>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-2" >
+
+                        <div class="row mt-3 border-bottom ">
+                            <div class="col-4 p-5 text-center">
+                                <input type="hidden" id="editIdInfo" name="editIdInfo">
+                                <img class="img-responsive rounded mb-2" id="set-profile" src="{{asset('img/workplaceImg.png')}}" alt="Logo" style="width: 150px;height: 150px;">
+
+                                <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none">
+                                <label for="file" class="mt-2 btn btn-sm btn-app">
+                                    <i class="fa fa-edit"></i>
+                                </label>
+                            </div>
+                            <div class="col-8">
+                                <input type="hidden" id="businessIdEdit" name="businessIdEdit">
+
+                                <div class="col-5 d-inline-block mb-3">
+                                    <label for="accname">Account Name*</label>
+                                    <input type="text" class="form-control mt-2" id="accname" name="accname">
+                                </div>
+
+                                <div class="col-5 d-inline-block mb-3">
+                                    <label for="currencyOpt">Currency</label>
+                                    <select class="form-control mt-2" id="currencyOpt">
+                                    </select>
+                                </div>
+
+                              {#  <div class="col-4 d-inline-block mb-3">
+                                    <label for="accid">Account ID*</label>
+                                    <input type="text" class="form-control" id="accid" name="accid" disabled>
+                                </div>#}
+                                {# <div class="col-2 d-inline-block mb-3">
+                                     <button type="button" class="btn btn-default btn-sm">Change</button>
+                                 </div>#}
+
+                                <div class="col-8 d-inline-block mb-3">
+                                    <label for="busListing">Business Listing</label>
+                                    <input type="text" class="form-control mt-2" id="busListing" name="busListing" disabled>
+                                    <input type="hidden" class="form-control mt-2" id="busLocation" name="busLocation">
+                                </div>
+
+                                <div class="col-2 d-inline-block mb-3">
+                                    <button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#modal-changeLoc">Change</button>
+                                </div>
+
+                                <div class="col-5 d-inline-block mb-3">
+                                    <label for="bus-timezone" style="line-height: 30px">Timezone</label>
+{#                                    <select class="use-timezone seltimezone select2 form-control" id="bus-timezone" name="bus-timezone" disabled title="The Account Timezone Can Only Be Changed By Account Holder" >#}
+{#                                        <option value="" disabled selected>Select timezone</option>#}
+{#                                    </select>#}
+                                    <select id="_bus-timezone" class="form-control">
+                                        <option value="Europe/London">Europe/London</option>
+                                    </select>
+                                </div>
+
+                               {# <div class="col-4 d-inline-block mb-3">
+                                    <label for="starOfWeek">Start Of The Work Week</label>
+                                    <input type="text" class="form-control " id="starOfWeek" name="starOfWeek" disabled>
+                                </div>#}
+                             {#   <div class="col-2 d-inline-block mb-3">
+                                    <button id="changeStartWeek" type="button" class="btn btn-default btn-sm">Change</button>
+                                </div>#}
+
+                                <div class="col-5 d-inline-block mb-3">
+                                    <label for="formatTime">The Format</label>
+                                    <input type="text" class="form-control mt-2" id="formatTime" name="formatTime">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {# <div class="row p-4 border-bottom">
+                             <div class="col-10">
+                                 <label>Overtime</label>
+                                 <p>Weekly overtime is calculated from the start of the week (Monday).</p>
+                             </div>
+
+                             <div class="col-3">
+                                 <div class="icheck-primary ">
+                                     <input type="checkbox" id="exempt" name="exempt"  value="false" >
+                                     <label for="exempt">Calculate Weekly OT After:</label>
+
+                                 </div>
+                                 <div class="input-group mb-3">
+                                     <input type="text" class="form-control">
+                                     <div class="input-group-append">
+                                         <span class="input-group-text">hours</span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-3 ml-4">
+                                 <div class="icheck-primary ">
+                                     <input type="checkbox" id="exempt" name="exempt"  value="false" >
+                                     <label for="exempt">Calculate Daily OT After:</label>
+
+                                 </div>
+                                 <div class="input-group mb-3">
+                                     <input type="text" class="form-control">
+                                     <div class="input-group-append">
+                                         <span class="input-group-text">hours</span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-3 ml-4">
+                                 <div class="icheck-primary ">
+                                     <input type="checkbox" id="exempt" name="exempt"  value="false" >
+                                     <label for="exempt">Calculate Daily Double OT After:</label>
+
+                                 </div>
+                                 <div class="input-group mb-3">
+                                     <input type="text" class="form-control">
+                                     <div class="input-group-append">
+                                         <span class="input-group-text">hours</span>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>#}
+
+                        {#<div class="row p-4 border-bottom">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                        <label class="custom-control-label cust-lable p-1" for="customSwitch1">Work Chat</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>#}
+                        <div class="row p-4 border-bottom">
+                            {#<div class="col-10">
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                        <label class="custom-control-label cust-lable p-1" for="customSwitch1">Time Off Requests</label>
+                                    </div>
+                                </div>
+                            </div>#}
+
+                                <h3>Time Off Requests</h3>
+
+                            <div class="col-12 p-2 mt-3" >
+                                <div>
+                                    <input type="checkbox" id="approveEmp" name="approveEmp"  value="false" >
+                                    <label class="pl-2" for="approveEmp">REQUIRE APPROVAL FOR EMPLOYEES</label>
+                                </div>
+                                {# <div class="icheck-primary ">
+                                     <input type="checkbox" id="exempt" name="exempt"  value="false" >
+                                     <label for="exempt">REQUIRE APPROVAL FOR SUPERVISORS</label>
+
+                                 </div>
+                                 <div class="icheck-primary">
+                                     <input type="checkbox" id="exempt" name="exempt"  value="false" >
+                                     <label for="exempt">SHOW APPROVED TIME OFF REQUESTS TO ALL USERS</label>
+
+                                 </div>#}
+                            </div>
+                            <div class="col-3 p-2">
+                                {#<div class="col-5 d-inline-block">
+                                    <label for="exempt">Days Notice Required For Time Off?* </label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">days</span>
+                                        </div>
+                                    </div>
+                                </div>#}
+                                {# <div class="col-5 d-inline-block">
+
+                                     <label for="exempt">Max Paid Hours Per Day?*</label>
+                                     <div class="input-group mb-3">
+                                         <input type="text" class="form-control">
+                                         <div class="input-group-append">
+                                             <span class="input-group-text">hours</span>
+                                         </div>
+                                     </div>
+                                 </div>#}
+
+
+                                <label for="maxTimeOff">Max Day Time Off</label>
+                                <div class="input-group mb-3 mt-2">
+                                    <input type="text" class="form-control" name="maxTimeOff" id="maxTimeOff">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Days</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-3 p-2">
+
+                                <label for="maxTimeOff">Max Hour Time Off Per Day</label>
+                                <div class="input-group mb-3 mt-2">
+                                    <input type="text" class="form-control" name="maxTimeOffHour" id="maxTimeOffHour">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Days</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="row p-4">
+
+                            <div class="col-10">
+                                <h3>Scheduling</h3>
+
+                            </div>
+
+                            <div class="col-6 p-2" >
+                                <div class=" ">
+                                    <input type="checkbox" id="setPref" name="setPref"  value="false" >
+                                    <label class="pl-2" for="setPref">ALLOW EMPLOYEES TO SET PREFERRED HOURS</label>
+
+                                </div>
+                                <div class=" ">
+                                    <input type="checkbox" id="viewCoworker" name="viewCoworker"  value="false" >
+                                    <label class="pl-2" for="viewCoworker">EMPLOYEES CAN VIEW THEIR COWORKERS SCHEDULE</label>
+
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="seePosition" name="seePosition"  value="false" >
+                                    <label class="pl-2" for="seePosition">EMPLOYEES CAN ONLY SEE THE SCHEDULE FOR THEIR POSITIONS</label>
+
+                                </div>
+
+
+                            </div>
+                            <div class="col-5 p-2" >
+
+                                <div class="mr-2">
+                                    <input type="checkbox" id="requireShiftConfirm" name="requireShiftConfirm"  value="false" >
+                                    <label  class="pl-2" for="requireShiftConfirm">REQUIRE SHIFT CONFIRMATION</label>
+
+                                </div>
+
+                                <div>
+                                    <input type="checkbox" id="showAvailability" name="showAvailability"  value="false" >
+                                    <label class="pl-2" for="showAvailability">SHOW AVAILABILITY TO ALL USERS</label>
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                </div>
+            </div>
+          </div>
+
+     </div>
+
+    <!-- right side bar-->
+    {{ include('blocks/breadcrumb.html.twig') }}
+
+        <!-- Main Footer -->
+        {{ include('blocks/footer.html.twig') }}
+
+ </div>
+
+
+<!-- modal change location -->
+<div class="modal fade" id="modal-changeLoc">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Address & Industry</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body px-4">
+                <h6 class="mb-3">Is the address for your business correct? Your employees use this information to join your workplace.</h6>
+
+                <div class="row mb-3">
+                    <label class="ml-2 mb-2">Select country</label>
+                    <div class="input-group mb-3 my-auto col-12">
+                        <select id="optSelectCountry" class="form-control">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-12">
+                        <label for="pac-input">Address</label>
+                        <div id="pac-container">
+                            <input id="pac-input" type="text" class="form-control col-12 mt-2"
+                                   placeholder="Enter a location">
+                        </div>
+                        <div id="map"></div>
+                        <div class="row mt-2">
+                            <div class="col-sm-6">
+                                <span>latitude</span>
+                                <input type="text" name="latitude" id="latitude">
+                            </div>
+                            <div class="col-sm-6">
+                                <span>langtitude</span>
+                                <input type="text" name="langtitude" id="langtitude">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+             {#   <div class="row mt-2">
+
+                    <div class="icheck-primary ">
+                        <input type="checkbox" id="searchBusList" name="searchBusList"  value="false" >
+                        <label for="searchBusList">SEARCH BUSINESS LISTINGS ONLY</label>
+
+                    </div>
+                </div>#}
+                {#<div class="row mt-2">
+                    <input type="text" id="industry" name="industry" >
+                    <label for="industry">Industry</label>
+
+                </div>#}
+
+            </div>
+            <div class="modal-footer">
+                <button id="save-location" type="button" class="btn btn-custbl btn-sm float-right">Save Location</button>
+                <button type="button" class="btn btn-danger btn-sm float-right" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- jQuery -->
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('js/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('js/demo.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- date-range-picker -->
+<script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- DataTables -->
+<script src="{{asset('plugins/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('plugins/datatables/dataTables.bootstrap4.js')}}"></script>
+<!-- bootstrap color picker -->
+<script src="{{asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
+<!-- icheck -->
+<script src="{{asset('plugins/icheck-bootstrap/icheck.js')}}"></script>
+
+<!-- Google Map -->
+<script src="{{asset('js/googlemap.js')}}"></script>
+<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4ZzdNEwCqCeDHK4szjckTih4xIVKFczA&libraries=places&callback=initAutocomplete" async defer ></script>
+
+<!-- mine script -->
+<script src="{{asset('js/config.js')}}"></script>
+<script src="{{asset('js/demoall.js')}}"></script>
+<script src="{{asset('js/pages/general-setting.js')}}"></script>
+
+
+</body>
+</html>

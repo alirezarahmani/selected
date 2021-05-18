@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Selected Time | Create Place</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Selected Time</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&amp;display=swap"
+          rel="stylesheet">
+    <link href="{{ asset('css/pages/entry-style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pages/vendors.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pages/icon_fonts/css/all_icons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pages/skins/square/grey.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/pages/modernizr.js') }}"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('plugins/toastr/toastr.min.css') }}"></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+
+<body>
+
+<div id="preloader">
+    <div data-loader="circle-side"></div>
+</div>
+
+<div id="loader_form">
+    <div data-loader="circle-side-2"></div>
+</div>
+
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3">
+                <div id="logo_home">
+                    <h1><a href="index.html"></a></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<main>
+    <div class="container">
+        <div id="wizard_container">
+            <form name="example-1" id="wrapped" method="POST">
+                <input id="website" name="website" type="text" value="">
+                <div id="middle-wizard">
+
+
+                    <div class="step" data-state="branchtype">
+                        <div class="question_title">
+                            <h3>Customize your Selected Time experience</h3>
+                            <label>Select your industry to help us setup your selected time account</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="item">
+                                    <input id="answer_1" type="radio" name="branch_1_group_1" value="Hospitality"
+                                           class="required">
+                                    <label for="answer_1"><img src="{{ asset('images/shop.svg') }}" height="50px"
+                                                               alt=""><strong>Hospitality </strong>Bars, Pubs,
+                                        Restaurants</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="item">
+                                    <input id="answer_2" name="branch_1_group_1" type="radio" value="Retail"
+                                           class="required">
+                                    <label for="answer_2"><img src="{{ asset('images/shopping-cart.svg') }}"
+                                                               height="50px" alt=""><strong>Retail</strong>Shops</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="item">
+                                    <input id="answer_3" name="branch_1_group_1" type="radio" value="Healthcare"
+                                           class="required">
+                                    <label for="answer_3"><img src="{{ asset('images/healthcare.svg') }}" height="50px"
+                                                               alt=""><strong>Healthcare</strong>General
+                                        Practices</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="item">
+                                    <input id="answer_4" name="branch_1_group_1" type="radio" value="Call center"
+                                           class="required">
+                                    <label for="answer_4"><img src="{{ asset('images/call-center.svg') }}" height="50px"
+                                                               alt=""><strong>Call center</strong>Customer
+                                        services</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="item">
+                                    <input id="answer_5" name="branch_1_group_1" type="radio" value="Logistics"
+                                           class="required">
+                                    <label for="answer_5"><img src="{{ asset('images/boxes.svg') }}" height="50px"
+                                                               alt=""><strong>Logistics</strong>Depo</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="item">
+                                    <input id="answer_6" name="branch_1_group_1" type="radio" value="Services"
+                                           class="required">
+                                    <label for="answer_6"><img src="{{ asset('images/customer-support.svg') }}"
+                                                               height="50px"
+                                                               alt=""><strong>Services</strong>Depo</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="item">
+                                    <input id="answer_7" name="branch_1_group_1" type="radio" value="Cleaning"
+                                           class="required">
+                                    <label for="answer_7"><img src="{{ asset('images/cleaning.svg') }}" height="50px"
+                                                               alt=""><strong>Cleaning</strong>Offices</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="item">
+                                    <input id="answer_8" name="branch_1_group_1" type="radio" value="Beauty"
+                                           class="required">
+                                    <label for="answer_8"><img src="{{ asset('images/salon.svg') }}" height="50px"
+                                                               alt=""><strong>Beauty</strong>Salons,
+                                        Hairdressers</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="item">
+                                    <input id="answer_9" name="branch_1_group_1" type="radio" value="custom"
+                                           class="required" multiple>
+                                    <label for="answer_9"><img src="/images/question.svg" height="50px" alt=""><strong>Something
+                                            else?</strong><br>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step" id="custom" data-state="custom-emp">
+                        <div class="question_title">
+                            <h3>Choose your industry</h3>
+
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-lg-20">
+                                <div class="box_general">
+                                    <div class="form-group">
+                                        <table>
+                                            <tr>
+                                                <td><input type="text" name="custom-industry"
+                                                           class="required form-control" placeholder="Enter here"/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="branch" id="custom-emp">
+                        <div class="step" data-state="employees">
+                            <div class="question_title">
+                                <h3>Select Position role</h3>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-20">
+                                    <div class="box_general">
+                                        <div class="form-group">
+                                            <table>
+                                                <tr>
+                                                    <td><input type="text" name="custom-scheduled" id="sch-1"
+                                                               class="required form-control" placeholder="Enter here"/>
+                                                    </td>
+                                                    <td><input type="text" name="custom-scheduled" id="sch-2"
+                                                               class=" form-control" placeholder="Enter here"/></td>
+                                                    <td><input type="text" name="custom-scheduled" id="sch-3"
+                                                               class=" form-control" placeholder="Enter here"/></td>
+                                                    <td><input type="text" name="custom-scheduled" id="sch-4"
+                                                               class="form-control" placeholder="Enter here"/></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="branch" id="Hospitality">
+                        <div class="step" data-state="employees">
+                            <div class="question_title">
+                                <h3>Select Scheduled Positions</h3>
+                                <p>You can always remove and add later</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_1_answer_1" type="checkbox" name="branch_1_answers[]"
+                                               value="Back of house" class="required">
+                                        <label for="branch_1_answer_1"><strong>Back of house</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_1_answer_2" name="branch_1_answers[]" type="checkbox"
+                                               value="Front of house" class="required">
+                                        <label for="branch_1_answer_2"><strong>Front of house</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_1_answer_3" name="branch_1_answers[]" type="checkbox"
+                                               value="Bartender" class="required">
+                                        <label for="branch_1_answer_3"><strong>Bartender</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_1_answer_4" name="branch_1_answers[]" type="checkbox"
+                                               value="Server" class="required">
+                                        <label for="branch_1_answer_4"><strong>Server</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_1_answer_5" name="branch_1_answers[]" type="checkbox"
+                                               value="Chef" class="required">
+                                        <label for="branch_1_answer_5"><strong>Chef</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_1_answer_6" name="branch_1_answers[]" type="checkbox"
+                                               value="KP" class="required">
+                                        <label for="branch_1_answer_6"><strong>KP</strong></label>
+                                    </div>
+                                </div>
+
+                                <div class="container">
+
+                                    <div class="row well">
+                                        <div class="col-md-4 col-sm-6 col-xs-12 col-md-offset-4 col-sm-offset-3">
+                                            <br>
+
+
+                                            <button type="submit" class="btn btn-default center-block"
+                                                    id="submitButton"></button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="branch" id="Retail">
+                        <div class="step" data-state="employees">
+                            <div class="question_title">
+                                <h3>Select Scheduled Positions</h3>
+                                <p>You can always remove and add later</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_2_answer_1" type="checkbox" name="branch_1_answers[]"
+                                               value="Sales Associate" class="required">
+                                        <label for="branch_2_answer_1"><strong>Sales Associate</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_2_answer_2" name="branch_1_answers[]" type="checkbox"
+                                               value="Customer Service" class="required">
+                                        <label for="branch_2_answer_2"><strong>Customer Service</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_2_answer_3" name="branch_1_answers[]" type="checkbox"
+                                               value="Inventory Control" class="required">
+                                        <label for="branch_2_answer_3"><strong>Inventory Control</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_2_answer_4" name="branch_1_answers[]" type="checkbox"
+                                               value="Assistant Store Manager" class="required">
+                                        <label for="branch_2_answer_4"><strong>Assistant Store Manager</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_2_answer_5" name="branch_1_answers[]" type="checkbox"
+                                               value="Cashier" class="required">
+                                        <label for="branch_2_answer_5"><strong>Cashier</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_2_answer_6" name="branch_1_answers[]" type="checkbox"
+                                               value="Store Manager" class="required">
+                                        <label for="branch_2_answer_6"><strong>Store Manager</strong></label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="branch" id="Healthcare">
+                        <div class="step" data-state="employees">
+                            <div class="question_title">
+                                <h3>Select Scheduled Positions</h3>
+                                <p>You can always remove and add later</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_3_answer_1" type="checkbox" name="branch_1_answers[]"
+                                               value="Care Assistant" class="required">
+                                        <label for="branch_3_answer_1"><strong>Care Assistant</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_3_answer_2" name="branch_1_answers[]" type="checkbox"
+                                               value="Support Worker" class="required">
+                                        <label for="branch_3_answer_2"><strong>Support Worker</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_3_answer_3" name="branch_1_answers[]" type="checkbox"
+                                               value="Registered Nurse" class="required">
+                                        <label for="branch_3_answer_3"><strong>Registered Nurse</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_3_answer_4" name="branch_1_answers[]" type="checkbox"
+                                               value="Doctor" class="required">
+                                        <label for="branch_3_answer_4"><strong>Doctor</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_3_answer_5" name="branch_1_answers[]" type="checkbox"
+                                               value="Mental Health Practitioner" class="required">
+                                        <label for="branch_3_answer_5"><strong>Mental Health
+                                                Practitioner</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_3_answer_6" name="branch_1_answers[]" type="checkbox"
+                                               value="Nurse" class="required">
+                                        <label for="branch_1_answer_6"><strong>Nurse</strong></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="branch" id="Call center">
+                        <div class="step" data-state="employees">
+                            <div class="question_title">
+                                <h3>Select Scheduled Positions</h3>
+                                <p>You can always remove and add later</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_4_answer_1" type="checkbox" name="branch_1_answers[]"
+                                               value="Customer Service Advisor" class="required">
+                                        <label for="branch_4_answer_1"><strong>Customer Service Advisor</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_4_answer_2" name="branch_1_answers[]" type="checkbox"
+                                               value="Inbound Calls" class="required">
+                                        <label for="branch_4_answer_2"><strong>Inbound Calls</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_4_answer_3" name="branch_1_answers[]" type="checkbox"
+                                               value="Outbound Calls" class="required">
+                                        <label for="branch_4_answer_3"><strong>Outbound Calls</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_4_answer_4" name="branch_1_answers[]" type="checkbox"
+                                               value="Agent" class="required">
+                                        <label for="branch_4_answer_4"><strong>Agent</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_4_answer_5" name="branch_1_answers[]" type="checkbox"
+                                               value="Customer Care Representative" class="required">
+                                        <label for="branch_4_answer_5"><strong>Customer Care
+                                                Representative</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_4_answer_6" name="branch_1_answers[]" type="checkbox"
+                                               value="Sales Executive" class="required">
+                                        <label for="branch_1_answer_6"><strong>Sales Executive</strong></label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="branch" id="Logistics">
+                        <div class="step" data-state="employees">
+                            <div class="question_title">
+                                <h3>Select Scheduled Positions</h3>
+                                <p>You can always remove and add later</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_5_answer_1" type="checkbox" name="branch_1_answers[]"
+                                               value="Administrator" class="required">
+                                        <label for="branch_5_answer_1"><strong>Administrator</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_5_answer_2" name="branch_1_answers[]" type="checkbox"
+                                               value="Supply Chain Manager" class="required">
+                                        <label for="branch_5_answer_2"><strong>Supply Chain Manager</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_5_answer_3" name="branch_1_answers[]" type="checkbox"
+                                               value="Assistant Warehouse Manager" class="required">
+                                        <label for="branch_5_answer_3"><strong>Assistant Warehouse
+                                                Manager</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_5_answer_4" name="branch_1_answers[]" type="checkbox"
+                                               value="Field Sales" class="required">
+                                        <label for="branch_5_answer_4"><strong>Field Sales</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_5_answer_5" name="branch_1_answers[]" type="checkbox"
+                                               value="Coordinator" class="required">
+                                        <label for="branch_5_answer_5"><strong>Coordinator</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_5_answer_6" name="branch_1_answers[]" type="checkbox"
+                                               value="Head of Logistics" class="required">
+                                        <label for="branch_5_answer_6"><strong>Head of Logistics</strong></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="branch" id="Services">
+                        <div class="step" data-state="employees">
+                            <div class="question_title">
+                                <h3>Select Scheduled Positions</h3>
+                                <p>You can always remove and add later</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_6_answer_1" type="checkbox" name="branch_1_answers[]"
+                                               value="Client Services Specialist" class="required">
+                                        <label for="branch_6_answer_1"><strong>Client Services
+                                                Specialist</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_6_answer_2" name="branch_1_answers[]" type="checkbox"
+                                               value="Supply Chain Manager" class="required">
+                                        <label for="branch_6_answer_2"><strong>Supply Chain Manager</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_6_answer_3" name="branch_1_answers[]" type="checkbox"
+                                               value="Customer Experience" class="required">
+                                        <label for="branch_6_answer_3"><strong>Customer Experience</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_6_answer_4" name="branch_1_answers[]" type="checkbox"
+                                               value="Engineer" class="required">
+                                        <label for="branch_6_answer_4"><strong>Engineer</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_6_answer_5" name="branch_1_answers[]" type="checkbox"
+                                               value="IT" class="required">
+                                        <label for="branch_6_answer_5"><strong>IT</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_6_answer_6" name="branch_1_answers[]" type="checkbox"
+                                               value="Admin" class="required">
+                                        <label for="branch_6_answer_6"><strong>Admin</strong></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="branch" id="Cleaning">
+                        <div class="step" data-state="employees">
+                            <div class="question_title">
+                                <h3>Select Scheduled Positions</h3>
+                                <p>You can always remove and add later</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_7_answer_1" type="checkbox" name="branch_1_answers[]"
+                                               value="Cleaning Operative" class="required">
+                                        <label for="branch_7_answer_1"><strong>Cleaning Operative</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_7_answer_2" name="branch_1_answers[]" type="checkbox"
+                                               value="Domestic Cleaner" class="required">
+                                        <label for="branch_7_answer_2"><strong>Domestic Cleaner</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_7_answer_3" name="branch_1_answers[]" type="checkbox"
+                                               value="Mobile Cleaner" class="required">
+                                        <label for="branch_7_answer_3"><strong>Mobile Cleaner</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_7_answer_4" name="branch_1_answers[]" type="checkbox"
+                                               value="Office Cleaner" class="required">
+                                        <label for="branch_7_answer_4"><strong>Office Cleaner</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_7_answer_5" name="branch_1_answers[]" type="checkbox"
+                                               value="Facilities Cleaning Supervisor" class="required">
+                                        <label for="branch_7_answer_5"><strong>Facilities Cleaning
+                                                Supervisor</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_7_answer_6" name="branch_1_answers[]" type="checkbox"
+                                               value="House Cleaner" class="required">
+                                        <label for="branch_7_answer_6"><strong>House Cleaner</strong></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="branch" id="Beauty">
+                        <div class="step" data-state="employees">
+                            <div class="question_title">
+                                <h3>Select Scheduled Positions</h3>
+                                <p>You can always remove and add later</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_8_answer_1" type="checkbox" name="branch_1_answers[]"
+                                               value="Beauty Therapist" class="required">
+                                        <label for="branch_8_answer_1"><strong>Beauty Therapist</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_8_answer_2" name="branch_1_answers[]" type="checkbox"
+                                               value="Hairdresser" class="required">
+                                        <label for="branch_8_answer_2"><strong>Hairdresser</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_8_answer_3" name="branch_1_answers[]" type="checkbox"
+                                               value="Salon Apprentice" class="required">
+                                        <label for="branch_8_answer_3"><strong>Salon Apprentice</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_8_answer_4" name="branch_1_answers[]" type="checkbox"
+                                               value="Apprentice Hairdresser" class="required">
+                                        <label for="branch_8_answer_4"><strong>Apprentice Hairdresser</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_8_answer_5" name="branch_1_answers[]" type="checkbox"
+                                               value="Team Leader" class="required">
+                                        <label for="branch_8_answer_5"><strong>Team Leader</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="item">
+                                        <input id="branch_8_answer_6" name="branch_1_answers[]" type="checkbox"
+                                               value="Beauty Therapist" class="required">
+                                        <label for="branch_8_answer_6"><strong>Beauty Therapist</strong></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="branch" id="Design">
+
+                        <div class="step" id="employees" data-state="end">
+                            <div class="question_title">
+                                <h3>Employee Setup</h3>
+                                <p>Add employees and tag them the positions they work</p>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-20">
+                                    <div class="box_general">
+                                        <div class="form-group">
+
+                                            <table>
+                                                <tr>
+                                                    <td><input type="text" name="first_last_name"
+                                                               class="required form-control"
+                                                               id="f"
+                                                               placeholder="First and Last name"/></td>
+                                                    <td><input type="email" name="email" id="email"
+                                                               class="required form-control"
+                                                               placeholder="Email"/></td>
+                                                    <td><select id="selPosition" class="ct required form-control"
+                                                                class="required form-control" name="positions">
+
+                                                        </select></td>
+                                                    <td><select class="form-control" class="required form-control"
+                                                                name="role" id="l">
+                                                            <option value="manager">manager</option>
+                                                            <option value="supervisor">supervisor</option>
+                                                            <option selected value="employee">employee</option>
+                                                        </select></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input type="text" name="first_last_name1" id="f1"
+                                                               class=" form-control"
+                                                               placeholder="First and Last name"/></td>
+                                                    <td><input type="email" name="email1" id="email1"
+                                                               class=" form-control"
+                                                               placeholder="Email"/></td>
+                                                    <td><select id="selPosition1" class="ct  form-control"
+                                                                class=" form-control" name="positions">
+
+                                                        </select></td>
+                                                    <td><select class="form-control" class="required form-control"
+                                                                name="role1" id="l1">
+                                                            <option value="manager">manager</option>
+                                                            <option value="supervisor">supervisor</option>
+                                                            <option selected value="employee">employee</option>
+                                                        </select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" name="first_last_name2" id="f2"
+                                                               class=" form-control"
+                                                               placeholder="First and Last name"/></td>
+                                                    <td><input type="email" name="email2" id="email2"
+                                                               class=" form-control"
+                                                               placeholder="Email"/></td>
+                                                    <td><select id="selPosition2" class="ct  form-control"
+                                                                class=" form-control" name="positions">
+
+                                                        </select></td>
+                                                    <td><select class="form-control" class="required form-control"
+                                                                name="role2" id="l2">
+                                                            <option value="manager">manager</option>
+                                                            <option value="supervisor">supervisor</option>
+                                                            <option selected value="employee">employee</option>
+                                                        </select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" name="first_last_name3" id="f3"
+                                                               class=" form-control"
+                                                               placeholder="First and Last name"/></td>
+                                                    <td><input type="email" id="email3" name="email3"
+                                                               class=" form-control"
+                                                               placeholder="Email"/></td>
+                                                    <td><select id="selPosition3" class="ct  form-control"
+                                                                class=" form-control" name="positions">
+
+                                                        </select></td>
+                                                    <td><select class="form-control" class="required form-control"
+                                                                name="role3" id="l3">
+                                                            <option value="manager">manager</option>
+                                                            <option value="supervisor">supervisor</option>
+                                                            <option selected value="employee">employee</option>
+                                                        </select></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="step" id="end">
+                            <div class="question_title">
+                                <h3>Scheduler Setup</h3>
+
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <div class="box_general">
+                                        <div class="form-group">
+
+                                            <p><strong>When does your work start?</strong><br>
+                                                Your schedule will start on this day and we'll use it to calculate
+                                                weekly overtime.</p>
+                                            <table>
+                                                <td>Schedule name<br><input type="text" name="schedule-name"
+                                                                            id="schedule-name"
+                                                                            class="required form-control"
+                                                    /></td>
+                                            </table>
+                                            <br>
+
+                                            <table>
+
+                                                <p> Your schedule will start on this day and we'll use it to calculate
+                                                    weekly overtime.</p>
+                                                <tr>
+                                                    <td><select class="required form-control"
+                                                                class="required form-control" id="whenstart"
+                                                                name="daysofweek">
+                                                            <option value="" selected>Select a day</option>
+                                                            <option value="Monday">Monday</option>
+                                                            <option value="Tuesday">Tuesday</option>
+                                                            <option value="Wednesday">Wednesday</option>
+                                                            <option value="Thursday">Thursday</option>
+                                                            <option value="Friday">Friday</option>
+                                                            <option value="Saturday">Saturday</option>
+                                                            <option value="Sunday">Sunday</option>
+                                                        </select></td>
+                                                </tr>
+                                            </table>
+                                            <p><strong>Create shift templates</strong><br>
+                                                What are your commonly scheduled shifts? We will save theses for you to
+                                                use quickly again and again.</p>
+                                            <table>
+                                                <tr>
+                                                    <td>Enter Time<br><input type="text" name="times" id="time"
+                                                                             class="required form-control"
+                                                                             placeholder="9am - 17pm"/></td>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <td>Position<select id="otherSelect"
+                                                                        class="ct required form-control"
+                                                                        name="xpositions">
+                                                        </select></td>
+                                                </tr>
+                                            </table>
+                                            <table>
+                                                <tr class="row">
+                                                    <label for="">Address</label>
+                                                    <div class="input-group mb-3 mt-2">
+                                                        <input type="text" required
+                                                               class="form-control placeinputs search1" id="pac-input"
+                                                               name="Address" placeholder="Enter a location">
+                                                    </div>
+                                                </tr>
+                                                <div id="map"></div>
+                                                <input type="hidden" name="latitude" id="latitude">
+                                                <input type="hidden" name="langtitude" id="langtitude">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="submit step" id="summary">
+                            <div class="question_title">
+                                <h3>Summary</h3>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <div class="box_general">
+                                        <div class="form-group">
+                                            <p><strong>Industry</strong><br>
+                                            </p>
+                                            <table>
+                                                <tr>
+                                                    <td><input readonly type="text" name="display-industry"
+                                                               id="display-industry"
+                                                               class="required form-control" placeholder=""/></td>
+                                                </tr>
+                                            </table>
+                                            <p><strong>Scheduled Positions</strong><br>
+                                            </p>
+                                            <table>
+                                                <tr id="display-scheduled-position">
+                                                </tr>
+                                            </table>
+                                            <p><strong>Employees</strong><br>
+                                            </p>
+                                            <table id="employee_display">
+
+                                            </table>
+                                            <p><strong>Scheduler</strong><br>
+                                            </p>
+
+                                            <table>
+                                                <tr>
+                                                    <td>When does your work start?<input readonly id="whenstart-display"
+                                                                                         type="text"
+                                                                                         name="first_last_name"
+                                                                                         class="required form-control"/>
+                                                    </td>
+
+                                                </tr>
+                                            </table>
+
+                                            <table>
+                                                <tr>
+                                                    <td>Time<input readonly id="time-display" type="text"
+                                                                   name="first_last_name"
+                                                                   class="required form-control"/></td>
+                                                    <td>Position<input readonly type="text" name="first_last_name"
+                                                                       id="posi-display"
+                                                                       class="required form-control"/></td>
+
+                                                </tr>
+                                            </table>
+                                            <table>
+                                                <tr>
+                                                    <td>Address<input readonly id="add-display" type="text"
+                                                                      name="first_last_name"
+                                                                      class="required form-control" placeholder=""/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <button type="button" class="forward">Add more</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div id="bottom-wizard">
+                    <button type="button" name="backward" class="backward">Go back</button>
+                    <button type="button" name="forward" class="forward" id="forward">Next</button>
+                    <button type="submit" name="process" id="finish" class="submit">Finish</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</main>
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('js/googlemap.js') }}"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4ZzdNEwCqCeDHK4szjckTih4xIVKFczA&libraries=places&callback=initAutocomplete"
+        async defer>
+</script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('js/pages/common_scripts.min.js') }}"></script>
+<script src="{{ asset('js/pages/menu.js') }}"></script>
+<script src="{{ asset('js/pages/main.js') }}"></script>
+<script src="{{ asset('js/pages/wizard_func_multiple_branch.js') }}"></script>
+
+</body>
+</html>
